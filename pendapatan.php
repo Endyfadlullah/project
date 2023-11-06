@@ -341,9 +341,9 @@ echo '<option value="'.$no++.'">'.$noo++.'.'.$querynama["nama"].'</option>';
          <input type="number" class="form-control" name="jumlah">
 		Sumber : 
     <select class="form-control" name="sumber">
-         <option value="1" >1. Trading</option>
-		     <option value="2" >2. Production</option>
-		     <option value="2" >2. Service</option>
+        <option value="1" >1. Trading</option>
+		    <option value="2" >2. Production</option>
+		    <option value="2" >2. Service</option>
 		 </select>
         </div>
         <!-- footer modal -->
