@@ -290,7 +290,7 @@ if ($row['id_sumber'] == 1){
 ?>
 
 <select class="form-control" name='id_sumber'>
-<?php 
+<?php
 $queri = mysqli_query($koneksi, "SELECT * FROM sumber");
 	$no = 1;
 	$noo = 1;

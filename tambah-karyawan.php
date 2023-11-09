@@ -7,9 +7,10 @@ $posisi = $_GET['posisi'];
 $alamat = $_GET['alamat'];
 $umur = $_GET['umur'];
 $kontak = $_GET['kontak'];
+$admin = $_GET['admin'];
 
 //query update
-$query = mysqli_query($koneksi,"INSERT INTO `karyawan` (`id_karyawan`, `nama`, `posisi`, `alamat`, `umur`, `kontak`) VALUES (null, '$nama', '$posisi', '$alamat', '$umur', '$kontak')");
+$query = mysqli_query($koneksi,"INSERT INTO `karyawan` (`id_karyawan`, `nama`, `posisi`, `alamat`, `umur`, `kontak`, `id_admin`) VALUES (null, '$nama', '$posisi', '$alamat', '$umur', '$kontak', '$admin')");
 
 if ($query) {
  # credirect ke page index
