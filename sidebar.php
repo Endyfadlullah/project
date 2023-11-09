@@ -15,7 +15,7 @@
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
-      <!-- Nav Item - Dashboard -->
+      <!-- Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="index.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -30,7 +30,7 @@
         Transaksi
       </div>
 
-      <!-- Nav Item - Pages Collapse Menu -->
+      <!-- Pendapatan -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="pendapatan.php">
           <i class="fas fa-fw fa-arrow-up"></i>
@@ -38,7 +38,7 @@
         </a>
       </li>
 
-      <!-- Nav Item - Utilities Collapse Menu -->
+      <!-- Pengeluaran -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="pengeluaran.php" >
           <i class="fas fa-fw fa-arrow-down"></i>
@@ -51,26 +51,39 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Karyawan
+        Data
       </div>
 
-      <!-- Nav Item - Pages Collapse Menu -->
+      <!-- Karyawan -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="karyawan.php">
           <i class="fas fa-fw fa-users"></i>
           <span>Karyawan</span>
         </a>
       </li>
-	  
+      
+      <!-- Supplier -->
+      <li class="nav-item">
+        <a class="nav-link" href="hutang.php">
+          <i class="fas fa-fw fa-users"></i>
+          <span>Supplier</span></a>
+      </li>
+
+      <!-- Customer -->
+      <li class="nav-item">
+        <a class="nav-link" href="hutang.php">
+          <i class="fas fa-fw fa-users"></i>
+          <span>Customer</span></a>
+      </li>
 	        <!-- Divider -->
       <hr class="sidebar-divider">
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Tagihan
+        Laporan Keuangan
       </div>
 
-      <!-- Nav Item - Tables -->
+
       <li class="nav-item">
         <a class="nav-link" href="laporan.php">
           <i class="fas fa-fw fa-table"></i>
