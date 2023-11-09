@@ -24,5 +24,6 @@ $sesi = mysqli_fetch_assoc($sesi);
 	header("location:index.php");
 }else{
 	header("location:login.php?pesan=gagal");
+	// header("location:login.html?pesan=gagal");
 }
 ?>
