@@ -83,12 +83,11 @@
       <div class="sidebar-heading">
         Laporan
       </div>
-
-      <!-- Laporan -->
+      <!-- Laporan Keuangan -->
       <li class="nav-item">
         <a class="nav-link" href="laporan.php">
           <i class="fas fa-fw fa-table"></i>
-          <span>Laporan</span></a>
+          <span>Laporan Keuangan</span></a>
       </li>
 
       <!-- Divider -->
