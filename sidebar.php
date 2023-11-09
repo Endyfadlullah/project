@@ -70,13 +70,6 @@
         Tagihan
       </div>
 
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="supplier.php">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Supplier</span></a>
-      </li>
-
       <!-- Nav Item - Tables -->
       <li class="nav-item">
         <a class="nav-link" href="laporan.php">
