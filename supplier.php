@@ -12,7 +12,7 @@ require 'cek-sesi.php';
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Data Karyawan</title>
+  <title>Supplier</title>
 
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -37,127 +37,96 @@ require 'cek-sesi.php';
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-        <button type="button" class="btn btn-success" style="margin:5px" data-toggle="modal" data-target="#myModalTambah"><i class="fa fa-plus"> Karyawan</i></button><br>
+        <button type="button" class="btn btn-success" style="margin:5px" data-toggle="modal" data-target="#myModalTambah"><i class="fa fa-plus"> Supplier</i></button><br>
 
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Daftar Karyawan</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Daftar Supplier</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Nama</th>
-                      <th>Posisi</th>
+                      <th>Nama Perusahaan</th>
+                      <th>Material</th>
                       <th>Alamat</th>
-                      <th>Umur</th>
                       <th>Kontak</th>
-                      <th>Aksi</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Nama</th>
-                      <th>Posisi</th>
+                      <th>Nama Perusahaan</th>
+                      <th>Material</th>
                       <th>Alamat</th>
-                      <th>Umur</th>
                       <th>Kontak</th>
-                      <th>Aksi</th>
                     </tr>
                   </tfoot>
                   <tbody>
 				  <?php 
-$query = mysqli_query($koneksi,"SELECT * FROM karyawan");
+$query = mysqli_query($koneksi,"SELECT * FROM supplier");
 $no = 1;
 while ($data = mysqli_fetch_assoc($query)) 
 {
 ?>
                     <tr>
-                      <td><?=$data['nama']?></td>
-                      <td><?=$data['posisi']?></td>
-                      <td><?=$data['alamat']?></td>
-                      <td><?=$data['umur']?></td>
-                      <td><?=$data['kontak']?></td>
+                      <td><?=$data['Nama_Perusahaan']?></td>
+                      <td><?=$data['Material']?></td>
+                      <td><?=$data['Alamat']?></td>
+                      <td><?=$data['no_telp']?></td>
 					  <td>
-                    <!-- Button untuk modal -->
-<a href="#" type="button" class=" fa fa-edit btn btn-primary btn-md" data-toggle="modal" data-target="#myModal<?php echo $data['id_karyawan']; ?>"></a>
+                    <!-- Button edit supplier -->
+<a href="#" type="button" class=" fa fa-edit btn btn-primary btn-md" data-toggle="modal" data-target="#myModal<?php echo $data['Kode_Supplier']; ?>"></a>
 </td>
 </tr>
 <!-- Modal Edit Mahasiswa-->
-<div class="modal fade" id="myModal<?php echo $data['id_karyawan']; ?>" role="dialog">
+<div class="modal fade" id="myModal<?php echo $data['Kode_Supplier']; ?>" role="dialog">
 <div class="modal-dialog">
 
 <!-- Modal content-->
 <div class="modal-content">
 <div class="modal-header">
-<h4 class="modal-title">Ubah Data Karyawan</h4>
+<h4 class="modal-title">Ubah Data Supplier</h4>
 <button type="button" class="close" data-dismiss="modal">&times;</button>
 </div>
 <div class="modal-body">
-<form role="form" action="proses-edit-karyawan.php" method="get">
+<form role="form" action="proses-edit-supplier.php" method="get">
 
 <?php
-$id = $data['id_karyawan']; 
-$query_edit = mysqli_query($koneksi,"SELECT * FROM karyawan WHERE id_karyawan='$id'");
+$id = $data['Kode_Supplier']; 
+$query_edit = mysqli_query($koneksi,"SELECT * FROM supplier WHERE Kode_Supplier='$id'");
 //$result = mysqli_query($conn, $query);
 while ($row = mysqli_fetch_array($query_edit)) {  
 ?>
 
 
-<input type="hidden" name="id_karyawan" value="<?php echo $row['id_karyawan']; ?>">
+<input type="hidden" name="Kode_Supplier" value="<?php echo $row['Kode_Supplier']; ?>">
 
 <div class="form-group">
-<label>Nama</label>
-<input type="text" name="nama" class="form-control" value="<?php echo $row['nama']; ?>">      
+<label>Nama Perusahaan</label>
+<input type="text" name="Nama_Perusahaan" class="form-control" value="<?php echo $row['Nama_Perusahaan']; ?>">      
 </div>
 
 <div class="form-group">
-<label>Posisi</label>
-<input type="text" name="posisi" class="form-control" value="<?php echo $row['posisi']; ?>">      
+<label>Material</label>
+<input type="text" name="Material" class="form-control" value="<?php echo $row['Material']; ?>">      
 </div>
 
 <div class="form-group">
 <label>Alamat</label>
-<input type="text" name="alamat" class="form-control" value="<?php echo $row['alamat']; ?>">      
-</div>
-
-<div class="form-group">
-<label>Umur</label>
-<input type="text" name="umur" class="form-control" value="<?php echo $row['umur']; ?>">      
+<input type="text" name="Alamat" class="form-control" value="<?php echo $row['Alamat']; ?>">      
 </div>
 
 <div class="form-group">
 <label>Kontak</label>
-<input type="text" name="kontak" class="form-control" value="<?php echo $row['kontak']; ?>">      
+<input type="text" name="no_telp" class="form-control" value="<?php echo $row['no_telp']; ?>">      
 </div>
 
-<div class="form-group">
-<label>Admin</label>
-<?php
-if ($row['id_admin'] == 1){
-	$querynama1 = mysqli_query($koneksi, "SELECT nama FROM sumber where id_sumber=1");
-	$querynama1 = mysqli_fetch_array($querynama1);
-}
-?>
-
-<select class="form-control" name='id_admin'>
-<?php
-$queri = mysqli_query($koneksi, "SELECT * FROM admin");
-	$no = 1;
-	$noo = 1;
-while($querynama = mysqli_fetch_array($queri)){
-
-echo '<option value="'.$no++.'">'.$noo++.'.'.$querynama["nama"].'</option>';
-}
-?>
-</select>     
-</div>
 <div class="modal-footer">  
 <button type="submit" class="btn btn-success">Ubah</button>
-<a href="hapus-karyawan.php?id_karyawan=<?=$row['id_karyawan'];?>" Onclick="confirm('Anda Yakin Ingin Menghapus?')" class="btn btn-danger">Hapus</a>
+<a href="hapus-supplier.php?Kode_Supplier=<?=$row['Kode_Supplier'];?>" Onclick="confirm('Anda Yakin Ingin Menghapus?')" class="btn btn-danger">Hapus</a>
 <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
 </div>
 <?php 
@@ -182,26 +151,20 @@ echo '<option value="'.$no++.'">'.$noo++.'.'.$querynama["nama"].'</option>';
       <div class="modal-content">
         <!-- heading modal -->
         <div class="modal-header">
-          <h4 class="modal-title">Tambah Karyawan</h4>
+          <h4 class="modal-title">Tambah Supplier</h4>
 		    <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <!-- body modal -->
-		<form action="tambah-karyawan.php" method="get">
+		<form action="tambah-supplier.php" method="POST">
         <div class="modal-body">
-		Nama : 
-         <input type="text" class="form-control" name="nama">
-		Posisi : 
-         <input type="text" class="form-control" name="posisi">
+		Nama Perusahaan : 
+         <input type="text" class="form-control" name="Nama_Perusahaan">
+		Material : 
+         <input type="text" class="form-control" name="Material">
 		Alamat : 
-         <input type="text" class="form-control" name="alamat">
-		Umur : 
-         <input type="number" class="form-control" name="umur">
+         <input type="text" class="form-control" name="Alamat">
 		Kontak : 
-         <input type="text" class="form-control" name="kontak">
-    Admin : 
-    <select class="form-control" name="admin">
-        <option value="1" >1. Admin 1</option>
-		 </select>
+         <input type="text" class="form-control" name="no_telp">
         </div>
         <!-- footer modal -->
         <div class="modal-footer">

@@ -84,7 +84,6 @@
       </div>
 
 
-      <!-- Laporan -->
       <li class="nav-item">
         <a class="nav-link" href="laporan.php">
           <i class="fas fa-fw fa-table"></i>
