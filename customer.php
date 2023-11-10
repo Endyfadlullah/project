@@ -12,7 +12,7 @@ require 'cek-sesi.php';
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Supplier</title>
+  <title>Data Customer</title>
 
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -37,88 +37,72 @@ require 'cek-sesi.php';
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-        <button type="button" class="btn btn-success" style="margin:5px" data-toggle="modal" data-target="#myModalTambah"><i class="fa fa-plus"> Supplier</i></button><br>
+        <button type="button" class="btn btn-success" style="margin:5px" data-toggle="modal" data-target="#myModalTambah"><i class="fa fa-plus"> Customer</i></button><br>
 
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Daftar Supplier</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Daftar Customer</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Nama Perusahaan</th>
-                      <th>Material</th>
-                      <th>Alamat</th>
+                      <th>Nama</th>
                       <th>Kontak</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Nama Perusahaan</th>
-                      <th>Material</th>
-                      <th>Alamat</th>
+                      <th>Nama</th>
                       <th>Kontak</th>
                       <th>Aksi</th>
                     </tr>
                   </tfoot>
                   <tbody>
 				  <?php 
-$query = mysqli_query($koneksi,"SELECT * FROM supplier");
+$query = mysqli_query($koneksi,"SELECT * FROM customer");
 $no = 1;
 while ($data = mysqli_fetch_assoc($query)) 
 {
 ?>
                     <tr>
-                      <td><?=$data['Nama_Perusahaan']?></td>
-                      <td><?=$data['Material']?></td>
-                      <td><?=$data['Alamat']?></td>
+                      <td><?=$data['nama_customer']?></td>
                       <td><?=$data['no_telp']?></td>
 					  <td>
-                    <!-- Button edit supplier -->
-<a href="#" type="button" class=" fa fa-edit btn btn-primary btn-md" data-toggle="modal" data-target="#myModal<?php echo $data['Kode_Supplier']; ?>"></a>
+                    <!-- Button untuk modal -->
+<a href="#" type="button" class=" fa fa-edit btn btn-primary btn-md" data-toggle="modal" data-target="#myModal<?php echo $data['id_customer']; ?>"></a>
 </td>
 </tr>
-<!-- Modal Edit Mahasiswa-->
-<div class="modal fade" id="myModal<?php echo $data['Kode_Supplier']; ?>" role="dialog">
+<!-- Modal Edit Customer-->
+<div class="modal fade" id="myModal<?php echo $data['id_customer']; ?>" role="dialog">
 <div class="modal-dialog">
 
 <!-- Modal content-->
 <div class="modal-content">
 <div class="modal-header">
-<h4 class="modal-title">Ubah Data Supplier</h4>
+<h4 class="modal-title">Ubah Data Customer</h4>
 <button type="button" class="close" data-dismiss="modal">&times;</button>
 </div>
 <div class="modal-body">
-<form role="form" action="proses-edit-supplier.php" method="get">
+<form role="form" action="proses-edit-customer.php" method="get">
 
 <?php
-$id = $data['Kode_Supplier']; 
-$query_edit = mysqli_query($koneksi,"SELECT * FROM supplier WHERE Kode_Supplier='$id'");
+$id = $data['id_customer']; 
+$query_edit = mysqli_query($koneksi,"SELECT * FROM customer WHERE id_customer='$id'");
 //$result = mysqli_query($conn, $query);
 while ($row = mysqli_fetch_array($query_edit)) {  
 ?>
 
 
-<input type="hidden" name="Kode_Supplier" value="<?php echo $row['Kode_Supplier']; ?>">
+<input type="hidden" name="id_customer" value="<?php echo $row['id_customer']; ?>">
 
 <div class="form-group">
-<label>Nama Perusahaan</label>
-<input type="text" name="Nama_Perusahaan" class="form-control" value="<?php echo $row['Nama_Perusahaan']; ?>">      
-</div>
-
-<div class="form-group">
-<label>Material</label>
-<input type="text" name="Material" class="form-control" value="<?php echo $row['Material']; ?>">      
-</div>
-
-<div class="form-group">
-<label>Alamat</label>
-<input type="text" name="Alamat" class="form-control" value="<?php echo $row['Alamat']; ?>">      
+<label>Nama</label>
+<input type="text" name="nama_customer" class="form-control" value="<?php echo $row['nama_customer']; ?>">      
 </div>
 
 <div class="form-group">
@@ -128,7 +112,7 @@ while ($row = mysqli_fetch_array($query_edit)) {
 
 <div class="modal-footer">  
 <button type="submit" class="btn btn-success">Ubah</button>
-<a href="hapus-supplier.php?Kode_Supplier=<?=$row['Kode_Supplier'];?>" Onclick="confirm('Anda Yakin Ingin Menghapus?')" class="btn btn-danger">Hapus</a>
+<a href="hapus-customer.php?id_customer=<?=$row['id_customer'];?>" Onclick="confirm('Anda Yakin Ingin Menghapus?')" class="btn btn-danger">Hapus</a>
 <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
 </div>
 <?php 
@@ -153,18 +137,14 @@ while ($row = mysqli_fetch_array($query_edit)) {
       <div class="modal-content">
         <!-- heading modal -->
         <div class="modal-header">
-          <h4 class="modal-title">Tambah Supplier</h4>
+          <h4 class="modal-title">Tambah Customer</h4>
 		    <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <!-- body modal -->
-		<form action="tambah-supplier.php" method="POST">
+		<form action="tambah-customer.php" method="get">
         <div class="modal-body">
-		Nama Perusahaan : 
-         <input type="text" class="form-control" name="Nama_Perusahaan">
-		Material : 
-         <input type="text" class="form-control" name="Material">
-		Alamat : 
-         <input type="text" class="form-control" name="Alamat">
+		Nama : 
+         <input type="text" class="form-control" name="nama_customer">
 		Kontak : 
          <input type="text" class="form-control" name="no_telp">
         </div>
