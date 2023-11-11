@@ -7,8 +7,10 @@
 	<tr>    
 	<th>ID Pemasukan</th>
     <th>Tgl Pemasukan</th>
-    <th>Jumlah</th>    
-	<th> ID Sumber</th> 
+    <th>Material</th>    
+	<th>Jumlah</th>
+	<th>ID Sumber</th>
+	<th>ID Customer</th>
 	</tr>  
 	<?php  
 	// Load file koneksi.php  
@@ -21,7 +23,9 @@ $query = mysqli_query($koneksi, "SELECT * FROM pemasukan");
 	echo "<tr>";    
 	echo "<td>".$data['id_pemasukan']."</td>";   
 	echo "<td>".$data['tgl_pemasukan']."</td>";    
-	echo "<td>".$data['jumlah']."</td>";    
+	echo "<td>".$data['nama_material']."</td>";    
+	echo "<td>".$data['sub_total']."</td>";      
 	echo "<td>".$data['id_sumber']."</td>";      
+	echo "<td>".$data['id_customer']."</td>";      
 	echo "</tr>";        
 	}  ?></table>

@@ -7,8 +7,12 @@
 	<tr>    
 	<th>ID Pengeluaran</th>
     <th>Tgl Pengeluaran</th>
-    <th>Jumlah</th>    
-	<th> ID Sumber</th> 
+    <th>Material</th>
+    <th>Harga</th>    
+    <th>Total</th>    
+    <th>Catatan</th>    
+	<th>ID Sumber</th> 
+	<th>ID Supplier</th>
 	</tr>  
 	<?php  
 	// Load file koneksi.php  
@@ -21,7 +25,11 @@ $query = mysqli_query($koneksi, "SELECT * FROM pengeluaran");
 	echo "<tr>";    
 	echo "<td>".$data['id_pengeluaran']."</td>";   
 	echo "<td>".$data['tgl_pengeluaran']."</td>";    
-	echo "<td>".$data['jumlah']."</td>";    
+	echo "<td>".$data['nama_material']."</td>";    
+	echo "<td>".$data['harga']."</td>";    
+	echo "<td>".$data['total']."</td>";    
+	echo "<td>".$data['catatan']."</td>";    
 	echo "<td>".$data['id_sumber']."</td>";      
+	echo "<td>".$data['id_supplier']."</td>";      
 	echo "</tr>";        
 	}  ?></table>

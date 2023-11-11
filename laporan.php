@@ -11,7 +11,7 @@ require 'cek-sesi.php';
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
+  <link rel="shortcut icon" href="img/uang.png">
   <title>Laporan Keuangan</title>
 
   <!-- Custom fonts for this template -->
@@ -41,7 +41,7 @@ require 'sidebar.php'; ?>
                    <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Daftar Karyawan</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Data Laporan Keuangan</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -51,7 +51,7 @@ require 'sidebar.php'; ?>
                       <th>Nama</th>
                       <th>Jumlah Transaksi </th>
                       <th>Jumlah Total Uang</th>
-					  <th>Download</th>
+					            <th>Download</th>
                     </tr>
                   </thead>
                   <tfoot>
@@ -60,13 +60,13 @@ require 'sidebar.php'; ?>
 				  <?php 
 $pemasukan=mysqli_query($koneksi,"SELECT * FROM pemasukan");
 while ($masuk=mysqli_fetch_array($pemasukan)){
-$arraymasuk[] = $masuk['jumlah'];
+$arraymasuk[] = $masuk['sub_total'];
 }
 $jumlahmasuk = array_sum($arraymasuk);
 
 $pengeluaran=mysqli_query($koneksi,"SELECT * FROM pengeluaran");
 while ($keluar=mysqli_fetch_array($pengeluaran)){
-$arraykeluar[] = $keluar['jumlah'];
+$arraykeluar[] = $keluar['total'];
 }
 $jumlahkeluar = array_sum($arraykeluar);
 
