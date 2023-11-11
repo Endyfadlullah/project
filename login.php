@@ -41,7 +41,7 @@
 				<form class="login100-form validate-form" action="proses-login.php" method="post">
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
 						<span class="label-input100">Email</span>
-						<input class="input100" type="email" name="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter username">
+						<input class="input100" type="email" name="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter email">
 						<span class="focus-input100"></span>
 					</div>
 
@@ -55,7 +55,7 @@
 						<div class="contact100-form-checkbox">
 							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
 							<label class="label-checkbox100" for="ckb1">
-								Remember me
+								Ingat saya
 							</label>
 						</div>
 
