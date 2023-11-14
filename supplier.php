@@ -57,15 +57,6 @@ require 'cek-sesi.php';
                       <th>Aksi</th>
                     </tr>
                   </thead>
-                  <tfoot>
-                    <tr>
-                      <th>Nama Perusahaan</th>
-                      <th>Material</th>
-                      <th>Alamat</th>
-                      <th>Kontak</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </tfoot>
                   <tbody>
 				  <?php 
 $query = mysqli_query($koneksi,"SELECT * FROM supplier");

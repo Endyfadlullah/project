@@ -58,16 +58,6 @@ require 'cek-sesi.php';
                       <th>Aksi</th>
                     </tr>
                   </thead>
-                  <tfoot>
-                    <tr>
-                      <th>Nama</th>
-                      <th>Posisi</th>
-                      <th>Alamat</th>
-                      <th>Umur</th>
-                      <th>Kontak</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </tfoot>
                   <tbody>
 				  <?php 
 $query = mysqli_query($koneksi,"SELECT * FROM karyawan");

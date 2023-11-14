@@ -256,15 +256,6 @@ $tujuhhari= mysqli_fetch_array($tujuhhari);
 					  <th>Aksi</th>
                     </tr>
                   </thead>
-                  <tfoot>
-                    <tr>
-                      <th>ID Pengeluaran</th>
-                      <th>Tanggal</th>
-                      <th>Jumlah</th>
-                      <th>Sumber</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </tfoot>
                   <tbody>
 				  <?php 
 $query = mysqli_query($koneksi,"SELECT * FROM pengeluaran");

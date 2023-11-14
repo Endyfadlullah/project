@@ -203,15 +203,6 @@ require ('sidebar.php'); ?>
 					  <th>Aksi</th>
                     </tr>
                   </thead>
-                  <tfoot>
-                    <tr>
-                      <th>ID Pemasukan</th>
-                      <th>Tanggal</th>
-                      <th>Jumlah</th>
-                      <th>Sumber</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </tfoot>
                   <tbody>
 				  <?php 
 $query = mysqli_query($koneksi,"SELECT * FROM pemasukan");

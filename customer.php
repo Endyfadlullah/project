@@ -55,13 +55,6 @@ require 'cek-sesi.php';
                       <th>Aksi</th>
                     </tr>
                   </thead>
-                  <tfoot>
-                    <tr>
-                      <th>Nama</th>
-                      <th>Kontak</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </tfoot>
                   <tbody>
 				  <?php 
 $query = mysqli_query($koneksi,"SELECT * FROM customer");
