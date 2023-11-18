@@ -29,36 +29,36 @@ require 'cek-sesi.php';
 require 'koneksi.php';
 require ('sidebar.php');
 
-$sekarang =mysqli_query($koneksi, "SELECT jumlah FROM pengeluaran
+$sekarang =mysqli_query($koneksi, "SELECT total FROM pengeluaran
 WHERE tgl_pengeluaran = CURDATE()");
 $sekarang = mysqli_fetch_array($sekarang);
 
-$satuhari =mysqli_query($koneksi, "SELECT jumlah FROM pengeluaran
+$satuhari =mysqli_query($koneksi, "SELECT total FROM pengeluaran
 WHERE tgl_pengeluaran = CURDATE() - INTERVAL 1 DAY");
 $satuhari= mysqli_fetch_array($satuhari);
 
 
-$duahari =mysqli_query($koneksi, "SELECT jumlah FROM pengeluaran
+$duahari =mysqli_query($koneksi, "SELECT total FROM pengeluaran
 WHERE tgl_pengeluaran = CURDATE() - INTERVAL 2 DAY");
 $duahari= mysqli_fetch_array($duahari);
 
-$tigahari =mysqli_query($koneksi, "SELECT jumlah FROM pengeluaran
+$tigahari =mysqli_query($koneksi, "SELECT total FROM pengeluaran
 WHERE tgl_pengeluaran = CURDATE() - INTERVAL 3 DAY");
 $tigahari= mysqli_fetch_array($tigahari);
 
-$empathari =mysqli_query($koneksi, "SELECT jumlah FROM pengeluaran
+$empathari =mysqli_query($koneksi, "SELECT total FROM pengeluaran
 WHERE tgl_pengeluaran = CURDATE() - INTERVAL 4 DAY");
 $empathari= mysqli_fetch_array($empathari);
 
-$limahari =mysqli_query($koneksi, "SELECT jumlah FROM pengeluaran
+$limahari =mysqli_query($koneksi, "SELECT total FROM pengeluaran
 WHERE tgl_pengeluaran = CURDATE() - INTERVAL 5 DAY");
 $limahari= mysqli_fetch_array($limahari);
 
-$enamhari =mysqli_query($koneksi, "SELECT jumlah FROM pengeluaran
+$enamhari =mysqli_query($koneksi, "SELECT total FROM pengeluaran
 WHERE tgl_pengeluaran = CURDATE() - INTERVAL 6 DAY");
 $enamhari= mysqli_fetch_array($enamhari);
 
-$tujuhhari =mysqli_query($koneksi, "SELECT jumlah FROM pengeluaran
+$tujuhhari =mysqli_query($koneksi, "SELECT total FROM pengeluaran
 WHERE tgl_pengeluaran = CURDATE() - INTERVAL 7 DAY");
 $tujuhhari= mysqli_fetch_array($tujuhhari);
 ?>   
@@ -67,9 +67,9 @@ $tujuhhari= mysqli_fetch_array($tujuhhari);
 
 <?php require ('navbar.php');?>  
 		
-		        <!-- Begin Page Content -->
+		    <!-- Begin Page Content -->
         <div class="container-fluid">
-   <!-- Content Row -->
+          <!-- Content Row -->
           <div class="row">
 
             <!-- Content Column -->
@@ -82,77 +82,47 @@ $tujuhhari= mysqli_fetch_array($tujuhhari);
                 </div>
                 <div class="card-body">
 				<?php
-				$namasumber1 = mysqli_query($koneksi,"SELECT * FROM `sumber` where id_sumber= 6 ");
+				$namasumber1 = mysqli_query($koneksi,"SELECT * FROM `sumber` where id_sumber= 1 ");
 				$sumbern1= mysqli_fetch_assoc($namasumber1);
 				
-				$namasumber2 = mysqli_query($koneksi,"SELECT * FROM `sumber` where id_sumber= 7 ");
+				$namasumber2 = mysqli_query($koneksi,"SELECT * FROM `sumber` where id_sumber= 2 ");
 				$sumbern2= mysqli_fetch_assoc($namasumber2);
 				
-				$namasumber3 = mysqli_query($koneksi,"SELECT * FROM `sumber` where id_sumber= 8 ");
+				$namasumber3 = mysqli_query($koneksi,"SELECT * FROM `sumber` where id_sumber= 3 ");
 				$sumbern3= mysqli_fetch_assoc($namasumber3);
 				
-				$namasumber4 = mysqli_query($koneksi,"SELECT * FROM `sumber` where id_sumber= 9 ");
-				$sumbern4= mysqli_fetch_assoc($namasumber4);
-				
-				$namasumber5 = mysqli_query($koneksi,"SELECT * FROM `sumber` where id_sumber= 10 ");
-				$sumbern5= mysqli_fetch_assoc($namasumber5);
-				
-				$hasil1=mysqli_query($koneksi,"SELECT * FROM pengeluaran where id_sumber = 6");
+				$hasil1=mysqli_query($koneksi,"SELECT * FROM pengeluaran where id_sumber = 1");
 				while ($jumlah1=mysqli_fetch_array($hasil1)){
-				$arrayhasil1[] = $jumlah1['jumlah'];
+				$arrayhasil1[] = $jumlah1['total'];
 				}
 				$jumlahhasil1 = array_sum($arrayhasil1);
 				
-				$hasil2=mysqli_query($koneksi,"SELECT * FROM pengeluaran where id_sumber = 7");
+				$hasil2=mysqli_query($koneksi,"SELECT * FROM pengeluaran where id_sumber = 2");
 				while ($jumlah2=mysqli_fetch_array($hasil2)){
-				$arrayhasil2[] = $jumlah2['jumlah'];
+				$arrayhasil2[] = $jumlah2['total'];
 				}
 				$jumlahhasil2 = array_sum($arrayhasil2);
 				
-				$hasil3=mysqli_query($koneksi,"SELECT * FROM pengeluaran where id_sumber = 8");
+				$hasil3=mysqli_query($koneksi,"SELECT * FROM pengeluaran where id_sumber = 3");
 				while ($jumlah3=mysqli_fetch_array($hasil3)){
-				$arrayhasil3[] = $jumlah3['jumlah'];
+				$arrayhasil3[] = $jumlah3['total'];
 				}
 				$jumlahhasil3 = array_sum($arrayhasil3);
 				
-				$hasil4=mysqli_query($koneksi,"SELECT * FROM pengeluaran where id_sumber = 9");
-				while ($jumlah4=mysqli_fetch_array($hasil4)){
-				$arrayhasil4[] = $jumlah4['jumlah'];
-				}
-				$jumlahhasil4 = array_sum($arrayhasil4);
-				
-				$hasil5=mysqli_query($koneksi,"SELECT * FROM pengeluaran where id_sumber = 10");
-				while ($jumlah5=mysqli_fetch_array($hasil5)){
-				$arrayhasil5[] = $jumlah5['jumlah'];
-				}
-				$jumlahhasil5 = array_sum($arrayhasil5);
-				
-				$sumber1 = mysqli_query($koneksi,"SELECT id_sumber FROM pengeluaran where id_sumber ='6'");
+				$sumber1 = mysqli_query($koneksi,"SELECT id_sumber FROM pengeluaran where id_sumber ='1'");
 				$sumber1text = mysqli_num_rows($sumber1);
 				$sumber1 = mysqli_num_rows($sumber1);
 				$sumber1 = $sumber1 * 10;
 				
-				$sumber2 = mysqli_query($koneksi,"SELECT id_sumber FROM pengeluaran where id_sumber ='7'");
+				$sumber2 = mysqli_query($koneksi,"SELECT id_sumber FROM pengeluaran where id_sumber ='2'");
 				$sumber2text = mysqli_num_rows($sumber2);
 				$sumber2 = mysqli_num_rows($sumber2);
 				$sumber2 = $sumber2 * 10;
 				
-				$sumber3 = mysqli_query($koneksi,"SELECT id_sumber FROM pengeluaran where id_sumber ='8'");
+				$sumber3 = mysqli_query($koneksi,"SELECT id_sumber FROM pengeluaran where id_sumber ='3'");
 				$sumber3text = mysqli_num_rows($sumber3);
 				$sumber3 = mysqli_num_rows($sumber3);
 				$sumber3 = $sumber3 * 10;
-				
-				$sumber4 = mysqli_query($koneksi,"SELECT id_sumber FROM pengeluaran where id_sumber ='9'");
-				$sumber4text = mysqli_num_rows($sumber4);
-				$sumber4 = mysqli_num_rows($sumber4);
-				$sumber4 = $sumber4 * 10;
-				
-				$sumber5 = mysqli_query($koneksi,"SELECT id_sumber FROM pengeluaran where id_sumber ='10'");
-				$sumber5text = mysqli_num_rows($sumber5);
-				$sumber5 = mysqli_num_rows($sumber5);
-				$sumber5 = $sumber5 * 10;
-				
-				
 				
 					$no=1;
 				echo '
@@ -167,79 +137,33 @@ $tujuhhari= mysqli_fetch_array($tujuhhari);
 				  <h4 class="small font-weight-bold">'.$sumbern3['nama'].'<span class="float-right">Rp. '.number_format($jumlahhasil3,2,',','.').'</span></h4>
                   <div class="progress mb-4">
                     <div class="progress-bar bg-info" role="progressbar" style="width:'.$sumber3.'%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">'.$sumber3text.' Kali</div>
-                  </div>
-				  <h4 class="small font-weight-bold">'.$sumbern4['nama'].'<span class="float-right">Rp. '.number_format($jumlahhasil4,2,',','.').'</span></h4>
-                  <div class="progress mb-4">
-                    <div class="progress-bar bg-primary" role="progressbar" style="width:'.$sumber4.'%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">'.$sumber4text.' Kali</div>
-                  </div>
-				  <h4 class="small font-weight-bold">'.$sumbern5['nama'].'<span class="float-right">Rp. '.number_format($jumlahhasil5,2,',','.').'</span></h4>
-                  <div class="progress mb-4">
-                    <div class="progress-bar bg-success" role="progressbar" style="width:'.$sumber5.'%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">'.$sumber5text.' Kali</div>
                   </div>';
 				  ?>
                 </div>
               </div>
-			  </div>
-			  
-			  
-			              <div class="col-lg-6">
-			                <!-- Collapsable Card Example -->
-              <div class="card shadow mb-4">
-                <!-- Card Header - Accordion -->
-                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                  <h6 class="m-0 font-weight-bold text-primary">Catatan 1</h6>
-                </a>
-                <!-- Card Content - Collapse -->
-                <div class="collapse show" id="collapseCardExample">
+			      </div>
+
+              <!-- Area Chart -->
+              <div class="col-lg-6">
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
+                  </div>
                   <div class="card-body">
-                    <?php
-					$catatan = mysqli_query($koneksi, "SELECT catatan From catatan WHERE id_catatan = 3");
-					$catatan = mysqli_fetch_array($catatan);
-					echo $catatan['catatan'];
-					?>
+                    <div class="chart-area">
+                      <canvas id="myAreaChart"></canvas>
+                    </div>
+                    <hr>
                   </div>
                 </div>
               </div>
-			                <div class="card shadow mb-4">
-                <!-- Card Header - Accordion -->
-                <a href="#collapseCardExample1" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample1">
-                  <h6 class="m-0 font-weight-bold text-primary">Catatan 2</h6>
-                </a>
-                <!-- Card Content - Collapse -->
-                <div class="collapse show" id="collapseCardExample1">
-                  <div class="card-body">
-                     <?php
-					$catatan = mysqli_query($koneksi, "SELECT catatan From catatan WHERE id_catatan = 4");
-					$catatan = mysqli_fetch_array($catatan);
-					echo $catatan['catatan'];
-					?>
-                  </div>
-                </div>
-              </div>
-			  </div>
-			  </div>
+
+			    </div>
 			  
-			  		  
-		                <!-- Area Chart -->
-						<div class="col-xl-8 col-lg-7">
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
-                </div>
-                <div class="card-body">
-                  <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
-                  </div>
-                  <hr>
-                </div>
-              </div>
-			  </div>
-			  
-			  
-			<button type="button" class="btn btn-success" style="margin:5px" data-toggle="modal" data-target="#myModalTambah"><i class="fa fa-plus"> Keluaran</i></button><br>
-           <!-- DataTales Example -->
+			<button type="button" class="btn btn-success" style="margin:5px" data-toggle="modal" data-target="#myModalTambah"><i class="fa fa-plus"> Pengeluaran</i></button><br>
+  <!-- DataTales Example -->
 	<div class="row">
-		<div class="col-xl-8 col-lg-7">
+		<div class="col-xl-12 col-lg-7">
           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">Transaksi Keluar</h6>
@@ -249,11 +173,14 @@ $tujuhhari= mysqli_fetch_array($tujuhhari);
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>ID Pengeluaran</th>
+                      <th>No</th>
                       <th>Tanggal</th>
-                      <th>Jumlah</th>
-                      <th>Sumber</th>
-					  <th>Aksi</th>
+                      <th>Material</th>
+                      <th>Harga</th>
+                      <th>Total</th>
+                      <th>Id Sumber</th>
+                      <th>Id Supplier</th>
+					            <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -266,10 +193,13 @@ while ($data = mysqli_fetch_assoc($query))
                     <tr>
                       <td><?=$data['id_pengeluaran']?></td>
                       <td><?=$data['tgl_pengeluaran']?></td>
-                      <td>Rp. <?=number_format($data['jumlah'],2,',','.');?></td>
+                      <td><?=$data['nama_material']?></td>
+                      <td><?=$data['harga']?></td>
+                      <td>Rp. <?=number_format($data['total'],2,',','.');?></td>
                       <td><?=$data['id_sumber']?></td>
+                      <td><?=$data['id_supplier']?></td>
 					  <td>
-                    <!-- Button untuk modal -->
+                    <!-- Button aksi modal -->
 <a href="#" type="button" class=" fa fa-edit btn btn-primary btn-md" data-toggle="modal" data-target="#myModal<?php echo $data['id_pengeluaran']; ?>"></a>
 </td>
 </tr>
@@ -307,29 +237,32 @@ while ($row = mysqli_fetch_array($query_edit)) {
 </div>
 
 <div class="form-group">
-<label>Jumlah</label>
-<input type="text" name="jumlah" class="form-control" value="<?php echo $row['jumlah']; ?>">      
+<label>Material</label>
+<input type="text" name="nama_material" class="form-control" value="<?php echo $row['nama_material']; ?>">      
+</div>
+
+<div class="form-group">
+<label>harga</label>
+<input type="number" name="harga" class="form-control" value="<?php echo $row['harga']; ?>">      
+</div>
+
+<div class="form-group">
+<label>Total</label>
+<input type="number" name="total" class="form-control" value="<?php echo $row['total']; ?>">      
 </div>
 
 <div class="form-group">
 <label>Sumber</label>
 <?php
-if ($row['id_sumber'] == 6){
-	$querynama1 = mysqli_query($koneksi, "SELECT nama FROM sumber where id_sumber=6");
+if ($row['id_sumber'] == 1){
+	$querynama1 = mysqli_query($koneksi, "SELECT nama FROM sumber where id_sumber=1");
 	$querynama1 = mysqli_fetch_array($querynama1);
-} else if ($row['id_sumber'] == 7){
-	$querynama2 = mysqli_query($koneksi, "SELECT nama FROM sumber where id_sumber=7");
+} else if ($row['id_sumber'] == 2){
+	$querynama2 = mysqli_query($koneksi, "SELECT nama FROM sumber where id_sumber=2");
 	$querynama2 = mysqli_fetch_array($querynama2);
-} else if ($row['id_sumber'] == 8){
-	$querynama3 = mysqli_query($koneksi, "SELECT nama FROM sumber where id_sumber=8");
+} else if ($row['id_sumber'] == 3){
+	$querynama3 = mysqli_query($koneksi, "SELECT nama FROM sumber where id_sumber=3");
 	$querynama3 = mysqli_fetch_array($querynama3);
-} else if ($row['id_sumber'] == 9){
-	$querynama4 = mysqli_query($koneksi, "SELECT nama FROM sumber where id_sumber=9");
-	$querynama4 = mysqli_fetch_array($querynama4);
-}
- else if ($row['id_sumber'] == 10){
-	$querynama5 = mysqli_query($koneksi, "SELECT nama FROM sumber where id_sumber=10");
-	$querynama5 = mysqli_fetch_array($querynama5);
 }
 ?>
 
@@ -344,6 +277,11 @@ echo '<option value="'.$no++.'">'.$noo++.'.'.$querynama["nama"].'</option>';
 }
 ?>
 </select>     
+</div>
+
+<div class="form-group">
+<label>Supplier</label>
+<input type="text" name="id_supplier" class="form-control" value="<?php echo $row['id_supplier']; ?>">      
 </div>
 
 <div class="modal-footer">  
@@ -381,14 +319,20 @@ echo '<option value="'.$no++.'">'.$noo++.'.'.$querynama["nama"].'</option>';
         <div class="modal-body">
 		Tanggal : 
          <input type="date" class="form-control" name="tgl_pengeluaran">
+		Material : 
+         <input type="text" class="form-control" name="nama_material">
 		Jumlah : 
-         <input type="number" class="form-control" name="jumlah">
+         <input type="number" class="form-control" name="harga">
+		Total Harga : 
+         <input type="number" class="form-control" name="total">
 		Sumber : 
     <select class="form-control" name="sumber">
         <option value="1" >1. Trading</option>
 		    <option value="2" >2. Production</option>
 		    <option value="2" >2. Service</option>
 		</select>
+    Supplier : 
+         <input type="text" class="form-control" name="supplier">
         </div>
         <!-- footer modal -->
         <div class="modal-footer">
