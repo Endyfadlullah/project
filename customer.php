@@ -50,6 +50,7 @@ require 'cek-sesi.php';
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
+                      <th>No.</th>
                       <th>Nama</th>
                       <th>Kontak</th>
                       <th>Aksi</th>
@@ -63,6 +64,7 @@ while ($data = mysqli_fetch_assoc($query))
 {
 ?>
                     <tr>
+                      <td><?=$data['id_customer']?></td>
                       <td><?=$data['nama_customer']?></td>
                       <td><?=$data['no_telp']?></td>
 					  <td>
