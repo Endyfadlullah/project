@@ -3,11 +3,13 @@
 include('koneksi.php');
 
 $tgl_pemasukan = $_GET['tgl_pemasukan'];
-$jumlah = $_GET['jumlah'];
+$nama_material = $_GET['nama_material'];
+$jumlah = $_GET['sub_total'];
 $sumber = $_GET['sumber'];
+$customer = $_GET['customer'];
 
 //query update
-$query = mysqli_query($koneksi,"INSERT INTO `pemasukan` (`tgl_pemasukan`, `jumlah`, `id_sumber`) VALUES ('$tgl_pemasukan', '$jumlah', '$sumber')");
+$query = mysqli_query($koneksi,"INSERT INTO `pemasukan` (`tgl_pemasukan`, `nama_material`,`sub_total`, `id_sumber`, `id_customer`) VALUES ( '$tgl_pemasukan', '$nama_material', '$jumlah', '$sumber', '$customer')");
 
 if ($query) {
  # credirect ke page index
