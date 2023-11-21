@@ -7,7 +7,9 @@
           </button>
 
           <!-- Topbar Search -->
-		<h1>Keuangan</h1>
+		<div style="font-family: 'Poppins', sans-serif; font-size: 100px;">
+      <h1>CV.GLOBAL TECHNIC</h1>
+    </div>
 
 <?php require 'user.php'; ?>
 
