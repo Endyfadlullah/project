@@ -32,64 +32,61 @@ require ('sidebar.php');
 $karyawan = mysqli_query($koneksi, "SELECT * FROM karyawan");
 $karyawan = mysqli_num_rows($karyawan);
 
-$pengeluaran_hari_ini = mysqli_query($koneksi, "SELECT jumlah FROM pengeluaran where tgl_pengeluaran = CURDATE()");
+$pengeluaran_hari_ini = mysqli_query($koneksi, "SELECT SUM(total) FROM pengeluaran where tgl_pengeluaran = CURDATE()");
 $pengeluaran_hari_ini = mysqli_fetch_array($pengeluaran_hari_ini);
  
-$pemasukan_hari_ini = mysqli_query($koneksi, "SELECT jumlah FROM pemasukan where tgl_pemasukan = CURDATE()");
+$pemasukan_hari_ini = mysqli_query($koneksi, "SELECT SUM(sub_total) FROM pemasukan where tgl_pemasukan = CURDATE()");
 $pemasukan_hari_ini = mysqli_fetch_array($pemasukan_hari_ini);
 
 
 
 $pemasukan=mysqli_query($koneksi,"SELECT * FROM pemasukan");
 while ($masuk=mysqli_fetch_array($pemasukan)){
-$arraymasuk[] = $masuk['jumlah'];
+$arraymasuk[] = $masuk['sub_total'];
 }
 $jumlahmasuk = array_sum($arraymasuk);
 
 
 $pengeluaran=mysqli_query($koneksi,"SELECT * FROM pengeluaran");
 while ($keluar=mysqli_fetch_array($pengeluaran)){
-$arraykeluar[] = $keluar['jumlah'];
+$arraykeluar[] = $keluar['total'];
 }
 $jumlahkeluar = array_sum($arraykeluar);
 
 
 $uang = $jumlahmasuk - $jumlahkeluar;
 
-//untuk data chart area
+//data chart//
 
-
-
-$sekarang =mysqli_query($koneksi, "SELECT jumlah FROM pemasukan
+$sekarang =mysqli_query($koneksi, "SELECT sub_total FROM pemasukan
 WHERE tgl_pemasukan = CURDATE()");
 $sekarang = mysqli_fetch_array($sekarang);
 
-$satuhari =mysqli_query($koneksi, "SELECT jumlah FROM pemasukan
+$satuhari =mysqli_query($koneksi, "SELECT sub_total FROM pemasukan
 WHERE tgl_pemasukan = CURDATE() - INTERVAL 1 DAY");
 $satuhari= mysqli_fetch_array($satuhari);
 
-
-$duahari =mysqli_query($koneksi, "SELECT jumlah FROM pemasukan
+$duahari =mysqli_query($koneksi, "SELECT sub_total FROM pemasukan
 WHERE tgl_pemasukan = CURDATE() - INTERVAL 2 DAY");
 $duahari= mysqli_fetch_array($duahari);
 
-$tigahari =mysqli_query($koneksi, "SELECT jumlah FROM pemasukan
+$tigahari =mysqli_query($koneksi, "SELECT sub_total FROM pemasukan
 WHERE tgl_pemasukan = CURDATE() - INTERVAL 3 DAY");
 $tigahari= mysqli_fetch_array($tigahari);
 
-$empathari =mysqli_query($koneksi, "SELECT jumlah FROM pemasukan
+$empathari =mysqli_query($koneksi, "SELECT sub_total FROM pemasukan
 WHERE tgl_pemasukan = CURDATE() - INTERVAL 4 DAY");
 $empathari= mysqli_fetch_array($empathari);
 
-$limahari =mysqli_query($koneksi, "SELECT jumlah FROM pemasukan
+$limahari =mysqli_query($koneksi, "SELECT sub_total FROM pemasukan
 WHERE tgl_pemasukan = CURDATE() - INTERVAL 5 DAY");
 $limahari= mysqli_fetch_array($limahari);
 
-$enamhari =mysqli_query($koneksi, "SELECT jumlah FROM pemasukan
+$enamhari =mysqli_query($koneksi, "SELECT sub_total FROM pemasukan
 WHERE tgl_pemasukan = CURDATE() - INTERVAL 6 DAY");
 $enamhari= mysqli_fetch_array($enamhari);
 
-$tujuhhari =mysqli_query($koneksi, "SELECT jumlah FROM pemasukan
+$tujuhhari =mysqli_query($koneksi, "SELECT sub_total FROM pemasukan
 WHERE tgl_pemasukan = CURDATE() - INTERVAL 7 DAY");
 $tujuhhari= mysqli_fetch_array($tujuhhari);
 ?>
@@ -164,7 +161,7 @@ $tujuhhari= mysqli_fetch_array($tujuhhari);
               </div>
             </div>
 
-            <!-- Earnings (Monthly) Card Example -->
+            <!-- Sisa Uang -->
             <div class="col-xl-3 col-md-6 mb-4">
               <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
@@ -182,7 +179,8 @@ $tujuhhari= mysqli_fetch_array($tujuhhari);
                     </div>
                   </div>
 
-                </div><div class="col">
+                </div>
+                <div class="col">
                           <div class="progress progress-sm mr-2">
 						  <?php
 						  if ($uang < 1 ){
@@ -202,7 +200,7 @@ $tujuhhari= mysqli_fetch_array($tujuhhari);
 						  
                             <div class="progress-bar bg-<?=$warna?>" role="progressbar" style="width: 100%" aria-valuenow="<?=$value?>" aria-valuemin="0" aria-valuemax="100"><span><?=$value?> % </span></div>
                           </div>
-                        </div>
+                </div>
               </div>
             </div>
 
@@ -256,25 +254,26 @@ $tujuhhari= mysqli_fetch_array($tujuhhari);
               </div>
             </div>
 
-            <!-- Pie Chart -->
-            <div class="col-xl-4 col-lg-5">
-              <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Perbandingan</h6>
-                  <div class="dropdown no-arrow">
-                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
+              <!-- Pie Chart -->
+              <div class="col-xl-4 col-lg-5">
+                <div class="card shadow mb-4">
+                  <!-- Card Header - Dropdown -->
+                  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Perbandingan</h6>
+                    <div class="dropdown no-arrow">
+                      <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                        <div class="dropdown-header">Dropdown Header:</div>
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                      </div>
                     </div>
                   </div>
-                </div>
+
                 <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-pie pt-4 pb-2">
@@ -368,7 +367,7 @@ var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["7 hari lalu","6 hari lalu", "5 hari lalu", "4 hari lalu", "3 hari lalu", "2 hari lalu", "1 hari lalu"],
+    labels: ["7 hari lalu","6 hari lalu", "5 hari lalu", "4 hari lalu", "3 hari lalu", "2 hari lalu", "1 hari lalu",],
     datasets: [{
       label: "Pendapatan",
       lineTension: 0.3,
@@ -382,7 +381,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [<?php echo $tujuhhari['0']?>, <?php echo $enamhari['0'] ?>, <?php echo $limahari['0'] ?>, <?php echo $empathari['0'] ?>, <?php echo $tigahari['0'] ?>, <?php echo $duahari['0'] ?>, <?php echo $satuhari['0'] ?>],
+      data: [<?php echo $tujuhhari['0'] ?? 0 ?>, <?php echo $enamhari['0'] ?? 0 ?>, <?php echo $limahari['0'] ?? 0 ?>, <?php echo $empathari['0'] ?? 0 ?>, <?php echo $tigahari['0'] ?? 0 ?>, <?php echo $duahari['0'] ?? 0 ?>, <?php echo $satuhari['0'] ?? 0 ?>],
     }],
   },
   options: {
@@ -452,6 +451,7 @@ var myLineChart = new Chart(ctx, {
     }
   }
 });
+
 
   
   </script>
