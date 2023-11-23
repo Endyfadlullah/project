@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V1</title>
+	<title>Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -18,7 +18,7 @@
 	<link rel="stylesheet" type="text/css" href="Login_v1/vendor/select2/select2.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="Login_v1/css/util.css">
-	<link rel="stylesheet" type="text/css" href="Login_v1/css/main.css">
+	<link rel="stylesheet" type="text/css" href="Login_v1/css/style.css">
 <!--===============================================================================================-->
 </head>
 <body>
@@ -57,21 +57,21 @@
 						</button>
 					</div>
 
-					<div class="text-center p-t-12">
+					<!-- <div class="text-center p-t-12">
 						<span class="txt1">
 							Forgot
 						</span>
 						<a class="txt2" href="#">
 							Username / Password?
 						</a>
-					</div>
+					</div> -->
 
-					<div class="text-center p-t-136">
+					<!-- <div class="text-center p-t-136">
 						<a class="txt2" href="#">
 							Create your Account
 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
 						</a>
-					</div>
+					</div> -->
 				</form>
 			</div>
 		</div>
