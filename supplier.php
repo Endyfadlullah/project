@@ -50,6 +50,7 @@ require 'cek-sesi.php';
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
+                      <th>ID Supplier</th>
                       <th>Nama Perusahaan</th>
                       <th>Material</th>
                       <th>Alamat</th>
@@ -65,6 +66,7 @@ while ($data = mysqli_fetch_assoc($query))
 {
 ?>
                     <tr>
+                      <td><?=$data['Kode_Supplier']?></td>
                       <td><?=$data['Nama_Perusahaan']?></td>
                       <td><?=$data['Material']?></td>
                       <td><?=$data['Alamat']?></td>
