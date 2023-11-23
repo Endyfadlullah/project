@@ -11,8 +11,8 @@ require 'cek-sesi.php';
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
-  <title>Dashboard - Admin</title>
+  <link rel="shortcut icon" href="img/uang.png">
+  <title>pengeluaran</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -178,14 +178,14 @@ $tujuhhari= mysqli_fetch_array($tujuhhari);
                       <th>Material</th>
                       <th>Harga</th>
                       <th>Total</th>
-                      <th>Id Sumber</th>
-                      <th>Id Supplier</th>
+                      <th>Sumber</th>
+                      <th>Supplier</th>
 					            <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
 				  <?php 
-$query = mysqli_query($koneksi,"SELECT * FROM pengeluaran");
+$query = mysqli_query($koneksi,"SELECT pengeluaran.id_pengeluaran, pengeluaran.tgl_pengeluaran, pengeluaran.nama_material, pengeluaran.harga, pengeluaran.total, sumber.nama, supplier.Nama_Perusahaan FROM pengeluaran INNER JOIN sumber ON pengeluaran.id_sumber = sumber.id_sumber INNER JOIN supplier ON pengeluaran.id_supplier = supplier.Kode_Supplier");
 $no = 1;
 while ($data = mysqli_fetch_assoc($query)) 
 {
@@ -196,8 +196,8 @@ while ($data = mysqli_fetch_assoc($query))
                       <td><?=$data['nama_material']?></td>
                       <td><?=$data['harga']?></td>
                       <td>Rp. <?=number_format($data['total'],2,',','.');?></td>
-                      <td><?=$data['id_sumber']?></td>
-                      <td><?=$data['id_supplier']?></td>
+                      <td><?=$data['nama']?></td>
+                      <td><?=$data['Nama_Perusahaan']?></td>
 					  <td>
                     <!-- Button aksi modal -->
 <a href="#" type="button" class=" fa fa-edit btn btn-primary btn-md" data-toggle="modal" data-target="#myModal<?php echo $data['id_pengeluaran']; ?>"></a>
@@ -225,11 +225,6 @@ while ($row = mysqli_fetch_array($query_edit)) {
 
 
 <input type="hidden" name="id_pengeluaran" value="<?php echo $row['id_pengeluaran']; ?>">
-
-<div class="form-group">
-<label>Id</label>
-<input type="text" name="id_pengeluaran" class="form-control" value="<?php echo $row['id_pengeluaran']; ?>" disabled>      
-</div>
 
 <div class="form-group">
 <label>Tanggal</label>
