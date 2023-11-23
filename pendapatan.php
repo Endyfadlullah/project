@@ -11,8 +11,8 @@ require 'cek-sesi.php';
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
-  <title>Dashboard - Admin</title>
+  <link rel="shortcut icon" href="img/uang.png">
+  <title>Pendapatan</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -110,17 +110,17 @@ require ('sidebar.php'); ?>
               </div>
 			  </div>
 
-			    <!-- DataTales Example -->
-					<div class="col-xl-12 col-lg-7">
-					<button type="button" class="btn btn-success" style="margin:5px" data-toggle="modal" data-target="#myModalTambah"><i class="fa fa-plus"> Pemasukan</i></button><br>
-
+          <div class="col-xl-12 col-lg-7">
+          <button type="button" class="btn btn-success" style="margin:5px" data-toggle="modal" data-target="#myModalTambah"><i class="fa fa-plus"> Pemasukan</i></button><br>
+          
+          <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">Transaksi Masuk</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+               <table class="table table-bordered" id="dataTable">
                   <thead>
                     <tr>
                       <th>No</th>
