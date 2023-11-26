@@ -7,7 +7,7 @@
           </button>
 
           <!-- Topbar Search -->
-		<div style="font-family: 'Poppins', sans-serif; font-size: 100px;">
+		<div>
       <h1>CV.GLOBAL TECHNIC</h1>
     </div>
 
