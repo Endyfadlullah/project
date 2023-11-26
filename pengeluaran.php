@@ -19,7 +19,7 @@ require 'cek-sesi.php';
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="css/sb-admin-2.css" rel="stylesheet">
 
 </head>
 
@@ -438,7 +438,7 @@ var myLineChart = new Chart(ctx, {
       pointHoverBorderColor: "rgba(78, 115, 223, 1)",
       pointHitRadius: 10,
       pointBorderWidth: 2,
-      data: [<?php echo $tujuhhari['0']?>, <?php echo $enamhari['0'] ?>, <?php echo $limahari['0'] ?>, <?php echo $empathari['0'] ?>, <?php echo $tigahari['0'] ?>, <?php echo $duahari['0'] ?>, <?php echo $satuhari['0'] ?>],
+      data: [<?php echo $tujuhhari['0'] ?? 0 ?>, <?php echo $enamhari['0'] ?? 0 ?>, <?php echo $limahari['0'] ?? 0 ?>, <?php echo $empathari['0'] ?? 0 ?>, <?php echo $tigahari['0'] ?? 0 ?>, <?php echo $duahari['0'] ?? 0 ?>, <?php echo $satuhari['0'] ?? 0 ?>],
     }],
   },
   options: {
