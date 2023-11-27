@@ -16,7 +16,9 @@ require 'cek-sesi.php';
 
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
 
   <!-- Custom styles for this template -->
   <link href="css/sb-admin-2.css" rel="stylesheet">
@@ -24,157 +26,174 @@ require 'cek-sesi.php';
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
+  <!-- link alert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body id="page-top">
-<?php require 'koneksi.php'; ?>
-<?php require 'sidebar.php'; ?>
-      <!-- Main Content -->
-      <div id="content">
+  <?php require 'koneksi.php'; ?>
+  <?php require 'sidebar.php'; ?>
+  <!-- Main Content -->
+  <div id="content">
 
-<?php require 'navbar.php'; ?>
+    <?php require 'navbar.php'; ?>
 
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
 
-        <button type="button" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; margin:5px;" class="btn btn-success" data-toggle="modal" data-target="#myModalTambah"><i class="fa fa-plus"></i> Customer</button><br>
+      <button type="button"
+        style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; margin:5px;"
+        class="btn btn-success" data-toggle="modal" data-target="#myModalTambah"><i class="fa fa-plus"></i>
+        Customer</button><br>
 
 
-          <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Daftar Customer</h6>
+      <!-- DataTales Example -->
+      <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Daftar Customer</h6>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama</th>
+                  <th>Kontak</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                $query = mysqli_query($koneksi, "SELECT * FROM customer");
+                $no = 1;
+                while ($data = mysqli_fetch_assoc($query)) {
+                  ?>
+                  <tr>
+                    <td>
+                      <?= $data['id_customer'] ?>
+                    </td>
+                    <td>
+                      <?= $data['nama_customer'] ?>
+                    </td>
+                    <td>
+                      <?= $data['no_telp'] ?>
+                    </td>
+                    <td>
+                      <!-- Button untuk modal -->
+                      <a href="#" type="button" class=" fa fa-edit btn btn-primary btn-md" data-toggle="modal"
+                        data-target="#myModal<?php echo $data['id_customer']; ?>"></a>
+                    </td>
+                  </tr>
+                  <!-- Modal Edit Customer-->
+                  <div class="modal fade" id="myModal<?php echo $data['id_customer']; ?>" role="dialog">
+                    <div class="modal-dialog">
+
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title">Ubah Data Customer</h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                          <form role="form" action="proses-edit-customer.php" method="get">
+
+                            <?php
+                            $id = $data['id_customer'];
+                            $query_edit = mysqli_query($koneksi, "SELECT * FROM customer WHERE id_customer='$id'");
+                            //$result = mysqli_query($conn, $query);
+                            while ($row = mysqli_fetch_array($query_edit)) {
+                              ?>
+
+
+                              <input type="hidden" name="id_customer" value="<?php echo $row['id_customer']; ?>">
+
+                              <div class="form-group">
+                                <label>Nama</label>
+                                <input type="text" name="nama_customer" class="form-control"
+                                  value="<?php echo $row['nama_customer']; ?>">
+                              </div>
+
+                              <div class="form-group">
+                                <label>Kontak</label>
+                                <input type="text" name="no_telp" class="form-control"
+                                  value="<?php echo $row['no_telp']; ?>">
+                              </div>
+
+                              <div class="modal-footer">
+                                <button type="submit" id="ubahtombol" class="btn btn-success">Ubah</button>
+                                <button type="button" id="hapus-btn" class="btn btn-danger"
+                                  onclick="deleteConfirm(<?= $row['id_customer']; ?>)">Hapus</button>
+                                <a id="delete-link-<?= $row['id_customer']; ?>"
+                                  href="hapus-customer.php?id_customer=<?= $row['id_customer']; ?>"></a>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
+                              </div>
+                              <?php
+                            }
+                            //mysql_close($host);
+                            ?>
+
+                          </form>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+
+
+                  <!-- Modal -->
+                  <div id="myModalTambah" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+
+                      <!-- konten modal-->
+                      <div class="modal-content">
+                        <!-- heading modal -->
+                        <div class="modal-header">
+                          <h4 class="modal-title">Tambah Customer</h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <!-- body modal -->
+                        <form action="tambah-customer.php" method="get">
+                          <div class="modal-body">
+                            Nama :
+                            <input type="text" class="form-control" name="nama_customer">
+                            Kontak :
+                            <input type="text" class="form-control" name="no_telp">
+                          </div>
+                          <!-- footer modal -->
+                          <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Tambah</button>
+                        </form>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
+                      </div>
+                    </div>
+
+                  </div>
             </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>No</th>
-                      <th>Nama</th>
-                      <th>Kontak</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-				  <?php 
-$query = mysqli_query($koneksi,"SELECT * FROM customer");
-$no = 1;
-while ($data = mysqli_fetch_assoc($query)) 
-{
-?>
-                    <tr>
-                      <td><?=$data['id_customer']?></td>
-                      <td><?=$data['nama_customer']?></td>
-                      <td><?=$data['no_telp']?></td>
-					  <td>
-                    <!-- Button untuk modal -->
-<a href="#" type="button" class=" fa fa-edit btn btn-primary btn-md" data-toggle="modal" data-target="#myModal<?php echo $data['id_customer']; ?>"></a>
-</td>
-</tr>
-<!-- Modal Edit Customer-->
-<div class="modal fade" id="myModal<?php echo $data['id_customer']; ?>" role="dialog">
-<div class="modal-dialog">
-
-<!-- Modal content-->
-<div class="modal-content">
-<div class="modal-header">
-<h4 class="modal-title">Ubah Data Customer</h4>
-<button type="button" class="close" data-dismiss="modal">&times;</button>
-</div>
-<div class="modal-body">
-<form role="form" action="proses-edit-customer.php" method="get">
-
-<?php
-$id = $data['id_customer']; 
-$query_edit = mysqli_query($koneksi,"SELECT * FROM customer WHERE id_customer='$id'");
-//$result = mysqli_query($conn, $query);
-while ($row = mysqli_fetch_array($query_edit)) {  
-?>
 
 
-<input type="hidden" name="id_customer" value="<?php echo $row['id_customer']; ?>">
-
-<div class="form-group">
-<label>Nama</label>
-<input type="text" name="nama_customer" class="form-control" value="<?php echo $row['nama_customer']; ?>">      
-</div>
-
-<div class="form-group">
-<label>Kontak</label>
-<input type="text" name="no_telp" class="form-control" value="<?php echo $row['no_telp']; ?>">      
-</div>
-
-<div class="modal-footer">  
-<button type="submit" class="btn btn-success">Ubah</button>
-<a href="hapus-customer.php?id_customer=<?=$row['id_customer'];?>" Onclick="confirm('Anda Yakin Ingin Menghapus?')" class="btn btn-danger">Hapus</a>
-<button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
-</div>
-<?php 
-}
-//mysql_close($host);
-?>  
-       
-</form>
-</div>
-</div>
-
-</div>
-</div>
-
-
-
- <!-- Modal -->
-  <div id="myModalTambah" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- konten modal-->
-      <div class="modal-content">
-        <!-- heading modal -->
-        <div class="modal-header">
-          <h4 class="modal-title">Tambah Customer</h4>
-		    <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <!-- body modal -->
-		<form action="tambah-customer.php" method="get">
-        <div class="modal-body">
-		Nama : 
-         <input type="text" class="form-control" name="nama_customer">
-		Kontak : 
-         <input type="text" class="form-control" name="no_telp">
-        </div>
-        <!-- footer modal -->
-        <div class="modal-footer">
-		<button type="submit" class="btn btn-success" >Tambah</button>
-		</form>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
+            <?php
+                }
+                ?>
+          </tbody>
+          </table>
         </div>
       </div>
-
     </div>
+
+
   </div>
+  <!-- /.container-fluid -->
 
+  </div>
+  <!-- End of Main Content -->
 
-<?php               
-} 
-?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-		  
+  <?php require 'footer.php' ?>
 
-        </div>
-        <!-- /.container-fluid -->
-
-      </div>
-      <!-- End of Main Content -->
-
-<?php require 'footer.php'?>
-
-    </div>
-    <!-- End of Content Wrapper -->
+  </div>
+  <!-- End of Content Wrapper -->
 
   </div>
   <!-- End of Page Wrapper -->
@@ -185,7 +204,7 @@ while ($row = mysqli_fetch_array($query_edit)) {
   </a>
 
   <!-- Logout Modal-->
-<?php require 'logout-modal.php';?>
+  <?php require 'logout-modal.php'; ?>
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -203,6 +222,84 @@ while ($row = mysqli_fetch_array($query_edit)) {
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
+
+  <!-- alert insert sukses -->
+  <?php
+  if (isset($_SESSION['insert-sukses']) && $_SESSION['insert-sukses'] == true) {
+    ?>
+    <script>
+      // Sisipkan skrip JavaScript untuk menangani klik tombol Tambah
+      Swal.fire({
+        title: 'Sukses',
+        text: 'Data customer telah berhasil ditambahkan.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Redirect atau lakukan tindakan lain jika perlu setelah OK diklik
+          window.location.href = 'customer.php';
+        }
+      });
+    </script>
+    <?php
+    $_SESSION['insert-sukses'] = false;
+  }
+  ?>
+
+  <!-- alert edit sukses -->
+  <?php
+  if (isset($_SESSION['edit-sukses']) && $_SESSION['edit-sukses'] == true) {
+    ?>
+    <script>
+      // Sisipkan skrip JavaScript untuk menangani klik tombol Tambah
+      Swal.fire({
+        title: 'Sukses',
+        text: 'Data customer telah berhasil diubah.',
+        icon: 'success',
+        confirmButtonText: 'OK',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Redirect atau lakukan tindakan lain jika perlu setelah OK diklik
+          window.location.href = 'customer.php';
+        }
+      });
+    </script>
+    <?php
+    $_SESSION['edit-sukses'] = false;
+  }
+  ?>
+  <!-- alert hapus -->
+  <script>
+    // Sisipkan skrip JavaScript untuk menangani klik tombol Tambah
+    function deleteConfirm(linkn) {
+
+      Swal.fire({
+        title: "Apakah ente mau ngehapus?",
+        text: "Ente tidak akan dapat mengembalikan ini!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Hapus"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          localStorage.setItem('swal', true);
+          document.querySelector(`#delete-link-${linkn}`).click();
+        }
+      });
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+      // Code yang ingin dijalankan setelah seluruh HTML telah dimuat
+      if (localStorage.getItem('swal') && localStorage.getItem('swal') == 'true') {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Sukses menghapus data.",
+          icon: "success"
+        })
+        localStorage.setItem('swal', false)
+      }
+    });
+  </script>
 
 </body>
 
