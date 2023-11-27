@@ -1,5 +1,5 @@
 <?php
-//include('dbconnected.php');
+session_start();
 include('koneksi.php');
 
 $id = $_GET['id_karyawan'];
@@ -13,7 +13,7 @@ $kontak = $_GET['kontak'];
 $query = mysqli_query($koneksi,"UPDATE karyawan SET nama='$nama' , posisi='$posisi', alamat='$alamat', umur='$umur', kontak='$kontak' WHERE id_karyawan='$id' ");
 
 if ($query) {
- # credirect ke page index
+ $_SESSION['edit-sukses'] = true;
  header("location:karyawan.php"); 
 }
 else{

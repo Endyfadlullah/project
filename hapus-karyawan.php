@@ -1,5 +1,4 @@
 <?php
-//include('dbconnected.php');
 include('koneksi.php');
 
 $id = $_GET['id_karyawan'];
@@ -8,7 +7,6 @@ $id = $_GET['id_karyawan'];
 $query = mysqli_query($koneksi,"DELETE FROM `karyawan` WHERE id_karyawan = '$id'");
 
 if ($query) {
- # credirect ke page index
  header("location:karyawan.php"); 
 }
 else{

@@ -1,6 +1,6 @@
 <?php
-//include('dbconnected.php');
 include('koneksi.php');
+session_start();
 
 $nama = $_GET['nama'];
 $posisi = $_GET['posisi'];
@@ -14,6 +14,7 @@ $query = mysqli_query($koneksi,"INSERT INTO `karyawan` (`id_karyawan`, `nama`, `
 
 if ($query) {
  # credirect ke page index
+ $_SESSION['insert-sukses'] = true;
  header("location:karyawan.php"); 
 }
 else{
