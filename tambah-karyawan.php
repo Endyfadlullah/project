@@ -10,15 +10,13 @@ $kontak = $_GET['kontak'];
 $admin = $_GET['admin'];
 
 //query update
-$query = mysqli_query($koneksi,"INSERT INTO `karyawan` (`id_karyawan`, `nama`, `posisi`, `alamat`, `umur`, `kontak`, `id_admin`) VALUES (null, '$nama', '$posisi', '$alamat', '$umur', '$kontak', '$admin')");
+$query = mysqli_query($koneksi, "INSERT INTO `karyawan` (`id_karyawan`, `nama`, `posisi`, `alamat`, `umur`, `kontak`, `id_admin`) VALUES (null, '$nama', '$posisi', '$alamat', '$umur', '$kontak', '$admin')");
 
 if ($query) {
- # credirect ke page index
- $_SESSION['insert-sukses'] = true;
- header("location:karyawan.php"); 
-}
-else{
- echo "ERROR, data gagal diupdate". mysqli_error($koneksi);
+    $_SESSION['insert-sukses'] = true;
+    header("location:karyawan.php");
+} else {
+    echo "ERROR, data gagal diupdate" . mysqli_error($koneksi);
 }
 
 //mysql_close($host);
