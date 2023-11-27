@@ -20,9 +20,12 @@
 	<link rel="stylesheet" type="text/css" href="Login_v1/css/util.css">
 	<link rel="stylesheet" type="text/css" href="Login_v1/css/style.css">
 <!--===============================================================================================-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+
 </head>
 <body>
-	
+
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
@@ -56,22 +59,6 @@
 							Login
 						</button>
 					</div>
-
-					<!-- <div class="text-center p-t-12">
-						<span class="txt1">
-							Forgot
-						</span>
-						<a class="txt2" href="#">
-							Username / Password?
-						</a>
-					</div> -->
-
-					<!-- <div class="text-center p-t-136">
-						<a class="txt2" href="#">
-							Create your Account
-							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-						</a>
-					</div> -->
 				</form>
 			</div>
 		</div>
@@ -96,6 +83,70 @@
 	</script>
 <!--===============================================================================================-->
 	<script src="Login_v1/js/main.js"></script>
+
+	<!-- <script>
+  $(document).ready(function(){
+    $('.login100-form').submit(function(e){
+      e.preventDefault();
+      var form = $(this);
+      var url = form.attr('action');
+      var formData = form.serialize();
+
+      $.ajax({
+        type: 'POST',
+        url: url,
+        data: formData,
+        success: function(response){
+          if(response == 'success'){
+            // Jika respons dari proses-login.php adalah 'success'
+            window.location.href = 'index.php'; // Ganti dengan halaman setelah login berhasil
+          } else {
+            // Jika respons dari proses-login.php bukan 'success'
+            Swal.fire({
+              icon: 'error',
+              title: 'Login Gagal',
+              text: 'Email atau Password salah!',
+              showCancelButton: true,
+              confirmButtonColor: '#d33',
+              cancelButtonColor: '#3085d6',
+              confirmButtonText: 'Coba Lagi'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                // Do something if user clicks "Coba Lagi"
+              }
+            });
+          }
+        }
+      });
+    });
+  });
+	</script> -->
+
+	<!-- alert eror -->
+	<script>
+		<?php
+		// Cek apakah terdapat pesan gagal dari URL dan belum ditampilkan SweetAlert
+		if (isset($_GET['pesan']) && $_GET['pesan'] == 'gagal' && !isset($_SESSION['login_alert_shown'])) {
+			echo "Swal.fire({
+				title: 'Login Gagal!',
+				text: 'Email atau password salah. Silakan coba lagi.',
+				icon: 'error',
+				confirmButtonText: 'OK'
+			});";
+			$_SESSION['login_alert_shown'] = true; // Tandai bahwa SweetAlert sudah ditampilkan
+		}
+		?>
+	</script>
+
+	<!-- alert agar saat di refresh tidak muncul -->
+	<script>
+			// Hapus parameter 'pesan' dari URL setelah SweetAlert ditampilkan
+			if (window.location.search.includes('pesan=gagal')) {
+				const newURL = window.location.pathname; // Dapatkan URL tanpa parameter
+				window.history.replaceState({}, document.title, newURL); // Ganti URL tanpa parameter
+			}
+	</script>
+
 
 </body>
 </html>

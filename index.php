@@ -21,9 +21,40 @@ require 'cek-sesi.php';
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.css" rel="stylesheet">
 
+  <!-- sweetalert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body id="page-top">
+  
+<!-- alert login berhasil -->
+<script>
+  // Periksa jika variabel sesi 'alert_shown' telah diatur
+  var alertShown = '<?php echo isset($_SESSION['alert_shown']) ? $_SESSION['alert_shown'] : '' ?>';
+
+        // Tampilkan Sweet Alert jika belum pernah ditampilkan sebelumnya
+        if (!alertShown) {
+        const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+        });
+        Toast.fire({
+          icon: "success",
+          title: "Anda telah berhasil login"
+        });
+
+    // Setel variabel sesi 'alert_shown' ke true
+    <?php $_SESSION['alert_shown'] = true; ?>
+  }
+</script>
 
 <?php
 require ('koneksi.php');
@@ -128,7 +159,7 @@ $tujuhhari= mysqli_fetch_array($tujuhhari);
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Pendapatan (Hari Ini)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rp.<?=number_format($pemasukan_hari_ini['0'],2,',','.');?></div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rp.<?=$pemasukan_hari_ini['0'] == null ? 0 : number_format($pemasukan_hari_ini['0'],2,',','.')?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -148,7 +179,7 @@ $tujuhhari= mysqli_fetch_array($tujuhhari);
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Pengeluaran (Hari Ini)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rp.<?=number_format($pengeluaran_hari_ini['0'],2,',','.');?></div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">Rp.<?=$pengeluaran_hari_ini['0'] == null ? 0 : number_format($pengeluaran_hari_ini['0'],2,',','.')?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
