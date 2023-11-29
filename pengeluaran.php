@@ -78,7 +78,7 @@ WHERE tgl_pengeluaran = CURDATE() - INTERVAL 7 DAY");
       <div class="row">
 
         <!-- Content Column -->
-        <div class="col-lg-6 mb-4">
+        <div class="col-lg-5 mb-4">
 
           <!-- Project Card Example -->
           <div class="card shadow mb-4">
@@ -148,8 +148,8 @@ WHERE tgl_pengeluaran = CURDATE() - INTERVAL 7 DAY");
           </div>
         </div>
 
-        <!-- Area Chart -->
-        <div class="col-lg-6">
+        <!-- Area Chart
+        <div class="col-lg-7">
           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
@@ -161,7 +161,7 @@ WHERE tgl_pengeluaran = CURDATE() - INTERVAL 7 DAY");
               <hr>
             </div>
           </div>
-        </div>
+        </div> -->
 
       </div>
 
