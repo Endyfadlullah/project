@@ -296,8 +296,8 @@ require 'cek-sesi.php';
     function deleteConfirm(linkn) {
 
       Swal.fire({
-        title: "Apakah ente mau ngehapus?",
-        text: "Ente tidak akan dapat mengembalikan ini!",
+        title: "Apakah anda yakin ingin menghapus?",
+        text: "Anda tidak akan dapat mengembalikan ini!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
