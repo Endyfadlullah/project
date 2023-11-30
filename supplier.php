@@ -59,7 +59,6 @@ require 'cek-sesi.php';
                 <tr>
                   <th>ID Supplier</th>
                   <th>Nama Perusahaan</th>
-                  <th>Material</th>
                   <th>Alamat</th>
                   <th>Kontak</th>
                   <th>Aksi</th>
@@ -77,9 +76,6 @@ require 'cek-sesi.php';
                     </td>
                     <td>
                       <?= $data['Nama_Perusahaan'] ?>
-                    </td>
-                    <td>
-                      <?= $data['Material'] ?>
                     </td>
                     <td>
                       <?= $data['Alamat'] ?>
@@ -120,12 +116,6 @@ require 'cek-sesi.php';
                                 <label>Nama Perusahaan</label>
                                 <input type="text" name="Nama_Perusahaan" class="form-control"
                                   value="<?php echo $row['Nama_Perusahaan']; ?>">
-                              </div>
-
-                              <div class="form-group">
-                                <label>Material</label>
-                                <input type="text" name="Material" class="form-control"
-                                  value="<?php echo $row['Material']; ?>">
                               </div>
 
                               <div class="form-group">

@@ -3,12 +3,11 @@ session_start();
 include('koneksi.php');
 
 $nama = $_POST['Nama_Perusahaan'];
-$material = $_POST['Material'];
 $alamat = $_POST['Alamat'];
 $kontak = $_POST['no_telp'];
 
 //query update
-$query = mysqli_query($koneksi, "INSERT INTO `supplier` (`Kode_Supplier`, `Nama_Perusahaan`, `Material`, `Alamat`, `no_telp`) VALUES (null, '$nama', '$material', '$alamat', '$kontak')");
+$query = mysqli_query($koneksi, "INSERT INTO `supplier` (`Kode_Supplier`, `Nama_Perusahaan`, `Alamat`, `no_telp`) VALUES (null, '$nama', '$alamat', '$kontak')");
 // return print(json_encode($query));
 if ($query) {
     $_SESSION['insert-sukses'] = true;
