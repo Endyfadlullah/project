@@ -42,3 +42,5 @@
 
 [2023-01-12:17:42:45] Nama Admin : admin => Edit Pemasukan => 4 => Sukses Edit
 
+[2023-01-12:18:02:24] Nama Admin : admin => Edit Pemasukan => 12143 => Sukses Edit
+
