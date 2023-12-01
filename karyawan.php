@@ -150,22 +150,13 @@ require 'cek-sesi.php';
                               </div>
 
                               <div class="form-group">
-                                <label>Admin</label>
-                                <?php
-                                if ($row['id_admin'] == 1) {
-                                  $querynama1 = mysqli_query($koneksi, "SELECT nama FROM sumber where id_sumber=1");
-                                  $querynama1 = mysqli_fetch_array($querynama1);
-                                }
-                                ?>
-
-                                <select class="form-control" name='id_admin'>
+                                <label>Cari Admin</label>
+                                <select class="form-control" id="searchAdmin" name="admin" onchange="searchAdmin()">
+                                  <option value="">Pilih Admin</option>
                                   <?php
-                                  $queri = mysqli_query($koneksi, "SELECT * FROM admin");
-                                  $no = 1;
-                                  $noo = 1;
-                                  while ($querynama = mysqli_fetch_array($queri)) {
-
-                                    echo '<option value="' . $no++ . '">' . $noo++ . '.' . $querynama["nama"] . '</option>';
+                                  $queryAdmin = mysqli_query($koneksi, "SELECT * FROM admin");
+                                  while ($admin = mysqli_fetch_assoc($queryAdmin)) {
+                                    echo '<option value="' . $admin["id_admin"] . '">' . $admin["nama"] . '</option>';
                                   }
                                   ?>
                                 </select>
@@ -178,7 +169,7 @@ require 'cek-sesi.php';
                                   href="hapus-karyawan.php?id_karyawan=<?= $row['id_karyawan']; ?>"></a>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Keluar</button>
                               </div>
-                            <?php
+                              <?php
                             }
                             //mysql_close($host);
                             ?>
@@ -192,11 +183,11 @@ require 'cek-sesi.php';
 
 
 
-                  
+
             </div>
 
 
-          <?php
+            <?php
                 }
                 ?>
           </tbody>
@@ -224,45 +215,52 @@ require 'cek-sesi.php';
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-<!-- Modal -->
-<div id="myModalTambah" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
+  <!-- Modal -->
+  <div id="myModalTambah" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-                      <!-- konten modal-->
-                      <div class="modal-content">
-                        <!-- heading modal -->
-                        <div class="modal-header">
-                          <h4 class="modal-title">Tambah Karyawan</h4>
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <!-- body modal -->
-                        <form action="tambah-karyawan.php" method="get">
-                          <div class="modal-body">
-                            Nama :
-                            <input type="text" class="form-control" name="nama">
-                            Posisi :
-                            <input type="text" class="form-control" name="posisi">
-                            Alamat :
-                            <input type="text" class="form-control" name="alamat">
-                            Umur :
-                            <input type="number" class="form-control" name="umur">
-                            Kontak :
-                            <input type="text" class="form-control" name="kontak">
-                            Admin :
-                            <select class="form-control" name="admin">
-                              <option value="1">1. Admin </option>
-                              <option value="1">2. Endy fadlullah </option>
-                            </select>
-                          </div>
-                          <!-- footer modal -->
-                          <div class="modal-footer">
-                            <button type="submit" class="btn btn-success" id="tambahButton">Tambah</button>
-                        </form>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
-                      </div>
-                    </div>
+      <!-- konten modal-->
+      <div class="modal-content">
+        <!-- heading modal -->
+        <div class="modal-header">
+          <h4 class="modal-title">Tambah Karyawan</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- body modal -->
+        <form action="tambah-karyawan.php" method="get">
+          <div class="modal-body">
+            Nama :
+            <input type="text" class="form-control" name="nama">
+            Posisi :
+            <input type="text" class="form-control" name="posisi">
+            Alamat :
+            <input type="text" class="form-control" name="alamat">
+            Umur :
+            <input type="number" class="form-control" name="umur">
+            Kontak :
+            <input type="text" class="form-control" name="kontak">
+            <div class="form-group">
+              <label>Cari Admin</label>
+              <select class="form-control" id="searchAdmin" name="admin" onchange="searchAdmin()">
+                <option value="">Pilih Admin</option>
+                <?php
+                $queryAdmin = mysqli_query($koneksi, "SELECT * FROM admin");
+                while ($admin = mysqli_fetch_assoc($queryAdmin)) {
+                  echo '<option value="' . $admin["id_admin"] . '">' . $admin["nama"] . '</option>';
+                }
+                ?>
+              </select>
+            </div>
+          </div>
+          <!-- footer modal -->
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success" id="tambahButton">Tambah</button>
+        </form>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
+      </div>
+    </div>
 
-                  </div>
+  </div>
   <!-- Logout Modal-->
   <?php require 'logout-modal.php'; ?>
 
@@ -360,6 +358,22 @@ require 'cek-sesi.php';
       }
     });
   </script>
+
+  <script>
+    function searchAdmin() {
+      var selectedAdmin = document.getElementById("searchAdmin").value;
+
+      // Redirect atau lakukan tindakan pencarian yang diperlukan
+      // Misalnya, jika Anda ingin mengarahkan ke halaman dengan filter admin tertentu:
+      if (selectedAdmin !== "") {
+        window.location.href = 'karyawan.php?admin=' + selectedAdmin;
+      } else {
+        // Jika admin tidak dipilih, kembalikan ke halaman daftar karyawan normal
+        window.location.href = 'karyawan.php';
+      }
+    }
+  </script>
+
 
 </body>
 
