@@ -91,7 +91,7 @@ require 'cek-sesi.php';
                       <?= $data['email'] ?>
                     </td>
                     <td>
-                      <?= $data['pass'] ?>
+                      <?=  preg_replace('/./', '*', $data['pass']); ?>
                     </td>
                     <td>
                       <!-- Button untuk modal -->
