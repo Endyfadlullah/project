@@ -165,7 +165,7 @@ WHERE tgl_pengeluaran = CURDATE() - INTERVAL 7 DAY");
 
       </div>
 
-      <button type="button" class="btn btn-success" style="margin:5px" data-toggle="modal"
+      <button type="button" class="btn btn-success" style="margin:5px;" data-toggle="modal"
         data-target="#myModalTambah"><i class="fa fa-plus"> Pengeluaran</i></button><br>
       <!-- DataTales Example -->
       <div class="row">
@@ -272,27 +272,17 @@ WHERE tgl_pengeluaran = CURDATE() - INTERVAL 7 DAY");
 
                                   <div class="form-group">
                                     <label>Sumber</label>
-                                    <?php
-                                    if ($row['id_sumber'] == 1) {
-                                      $querynama1 = mysqli_query($koneksi, "SELECT nama FROM sumber where id_sumber=1");
-                                      $querynama1 = mysqli_fetch_array($querynama1);
-                                    } else if ($row['id_sumber'] == 2) {
-                                      $querynama2 = mysqli_query($koneksi, "SELECT nama FROM sumber where id_sumber=2");
-                                      $querynama2 = mysqli_fetch_array($querynama2);
-                                    } else if ($row['id_sumber'] == 3) {
-                                      $querynama3 = mysqli_query($koneksi, "SELECT nama FROM sumber where id_sumber=3");
-                                      $querynama3 = mysqli_fetch_array($querynama3);
-                                    }
-                                    ?>
-
-                                    <select class="form-control" name='id_sumber'>
+                                    <select class="form-control" id="searchSumber" name="id_sumber" onchange="searchSumber()">
+                                      <option value="">Pilih Sumber</option>
                                       <?php
-                                      $queri = mysqli_query($koneksi, "SELECT * FROM sumber");
-                                      $no = 1;
-                                      $noo = 1;
-                                      while ($querynama = mysqli_fetch_array($queri)) {
-
-                                        echo '<option value="' . $no++ . '">' . $noo++ . '.' . $querynama["nama"] . '</option>';
+                                      $querySumber = mysqli_query($koneksi, "SELECT * FROM sumber");
+                                      while ($sumber = mysqli_fetch_assoc($querySumber)) {
+                                        ?>
+                                        <option <?php echo $row['id_sumber'] == $sumber["id_sumber"] ? 'selected' : '' ?>
+                                          value="<?php echo $sumber["id_sumber"] ?>">
+                                          <?php echo $sumber["nama"] ?>
+                                        </option>
+                                        <?php
                                       }
                                       ?>
                                     </select>
@@ -300,8 +290,20 @@ WHERE tgl_pengeluaran = CURDATE() - INTERVAL 7 DAY");
 
                                   <div class="form-group">
                                     <label>Supplier</label>
-                                    <input type="text" name="id_supplier" class="form-control"
-                                      value="<?php echo $row['id_supplier']; ?>">
+                                    <select class="form-control" id="searchSumber" name="id_supplier" onchange="searchSumber()">
+                                      <option value="">Pilih Supplier</option>
+                                      <?php
+                                      $querySupplier = mysqli_query($koneksi, "SELECT * FROM supplier");
+                                      while ($supplier = mysqli_fetch_assoc($querySupplier)) {
+                                        ?>
+                                        <option <?php echo $row['id_supplier'] == $supplier["Kode_Supplier"] ? 'selected' : '' ?>
+                                          value="<?php echo $supplier["Kode_Supplier"] ?>">
+                                          <?php echo $supplier["Nama_Perusahaan"] ?>
+                                        </option>
+                                        <?php
+                                      }
+                                      ?>
+                                    </select>
                                   </div>
 
                                   <div class="modal-footer">
@@ -348,14 +350,30 @@ WHERE tgl_pengeluaran = CURDATE() - INTERVAL 7 DAY");
                                 <input type="number" class="form-control" name="harga">
                                 Total Harga :
                                 <input type="number" class="form-control" name="total">
-                                Sumber :
-                                <select class="form-control" name="sumber">
-                                  <option value="1">1. Trading</option>
-                                  <option value="2">2. Production</option>
-                                  <option value="2">2. Service</option>
-                                </select>
-                                Supplier :
-                                <input type="text" class="form-control" name="supplier">
+                                <div class="form-group">
+                                  <label>Sumber :</label>
+                                  <select class="form-control" id="searchSumber" name="sumber" onchange="searchSumber()">
+                                    <option value="">Pilih Sumber</option>
+                                    <?php
+                                    $querySumber = mysqli_query($koneksi, "SELECT * FROM sumber");
+                                    while ($sumber = mysqli_fetch_assoc($querySumber)) {
+                                      echo '<option value="' . $sumber["id_sumber"] . '">' . $sumber["nama"] . '</option>';
+                                    }
+                                    ?>
+                                  </select>
+                                </div>
+                                <div class="form-group">
+                                  <label>Supplier :</label>
+                                  <select class="form-control" id="searchSumber" name="supplier" onchange="searchSumber()">
+                                    <option value="">Pilih Supplier</option>
+                                    <?php
+                                    $querySupplier = mysqli_query($koneksi, "SELECT * FROM supplier");
+                                    while ($supplier = mysqli_fetch_assoc($querySupplier)) {
+                                      echo '<option value="' . $supplier["Kode_Supplier"] . '">' . $supplier["Nama_Perusahaan"] . '</option>';
+                                    }
+                                    ?>
+                                  </select>
+                                </div>
                               </div>
                               <!-- footer modal -->
                               <div class="modal-footer">
@@ -626,8 +644,23 @@ WHERE tgl_pengeluaran = CURDATE() - INTERVAL 7 DAY");
     });
   </script>
 
+  <!-- <script>
+    function searchSumber() {
+      var selectedSumber = document.getElementById("searchSumber").value;
+
+      // Redirect atau lakukan tindakan pencarian yang diperlukan
+      // Misalnya, jika Anda ingin mengarahkan ke halaman dengan filter admin tertentu:
+      if (selectedSumber !== "") {
+        window.location.href = 'pengeluaran.php?sumber=' + selectedSumber;
+      } else {
+        // Jika admin tidak dipilih, kembalikan ke halaman daftar karyawan normal
+        window.location.href = 'pengeluaran.php';
+      }
+    }
+  </script> -->
+
   <style>
-    #dataTable_filter{
+    #dataTable_filter {
       display: flex;
       justify-content: end;
     }

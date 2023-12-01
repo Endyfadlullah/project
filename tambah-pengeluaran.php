@@ -9,12 +9,12 @@ $jumlah = $_GET['total'];
 $sumber = $_GET['sumber'];
 $supplier = $_GET['supplier'];
 
-//query update
+//query insert data pengeluaran
 $query = mysqli_query($koneksi, "INSERT INTO `pengeluaran` (`tgl_pengeluaran`, `nama_material`, `harga`, `total`, `id_sumber`, `id_supplier`) VALUES ('$tgl_pengeluaran', '$material', '$harga', '$jumlah', '$sumber', '$supplier')");
 
 if ($query) {
     $_SESSION['insert-sukses'] = true;
-    header("location:pengeluaran.php");
+    header("location:pengeluaran.php?sumber=$sumber");
 } else {
     echo "ERROR, data gagal diupdate" . mysqli_error($koneksi);
 }

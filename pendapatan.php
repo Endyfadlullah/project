@@ -214,27 +214,17 @@ require 'cek-sesi.php';
 
                                   <div class="form-group">
                                     <label>Sumber</label>
-                                    <?php
-                                    if ($row['id_sumber'] == 1) {
-                                      $querynama1 = mysqli_query($koneksi, "SELECT nama FROM sumber where id_sumber=1");
-                                      $querynama1 = mysqli_fetch_array($querynama1);
-                                    } else if ($row['id_sumber'] == 2) {
-                                      $querynama2 = mysqli_query($koneksi, "SELECT nama FROM sumber where id_sumber=2");
-                                      $querynama2 = mysqli_fetch_array($querynama2);
-                                    } else if ($row['id_sumber'] == 3) {
-                                      $querynama3 = mysqli_query($koneksi, "SELECT nama FROM sumber where id_sumber=3");
-                                      $querynama3 = mysqli_fetch_array($querynama3);
-                                    }
-                                    ?>
-
-                                    <select class="form-control" name='id_sumber'>
+                                    <select class="form-control" id="searchSumber" name="id_sumber" onchange="searchSumber()">
+                                      <option value="">Pilih Sumber</option>
                                       <?php
-                                      $queri = mysqli_query($koneksi, "SELECT * FROM sumber");
-                                      $no = 1;
-                                      $noo = 1;
-                                      while ($querynama = mysqli_fetch_array($queri)) {
-
-                                        echo '<option value="' . $no++ . '">' . $noo++ . '.' . $querynama["nama"] . '</option>';
+                                      $querySumber = mysqli_query($koneksi, "SELECT * FROM sumber");
+                                      while ($sumber = mysqli_fetch_assoc($querySumber)) {
+                                        ?>
+                                        <option <?php echo $row['id_sumber'] == $sumber["id_sumber"] ? 'selected' : '' ?>
+                                          value="<?php echo $sumber["id_sumber"] ?>">
+                                          <?php echo $sumber["nama"] ?>
+                                        </option>
+                                        <?php
                                       }
                                       ?>
                                     </select>
@@ -242,8 +232,20 @@ require 'cek-sesi.php';
 
                                   <div class="form-group">
                                     <label>Customer</label>
-                                    <input type="text" name="id_customer" class="form-control"
-                                      value="<?php echo $row['id_customer']; ?>">
+                                    <select class="form-control" id="searchSumber" name="id_customer" onchange="searchSumber()">
+                                      <option value="">Pilih Customer</option>
+                                      <?php
+                                      $queryCustomer = mysqli_query($koneksi, "SELECT * FROM customer");
+                                      while ($customer = mysqli_fetch_assoc($queryCustomer)) {
+                                        ?>
+                                        <option <?php echo $row['id_customer'] == $customer["id_customer"] ? 'selected' : '' ?>
+                                          value="<?php echo $customer["id_customer"] ?>">
+                                          <?php echo $customer["nama_customer"] ?>
+                                        </option>
+                                        <?php
+                                      }
+                                      ?>
+                                    </select>
                                   </div>
 
                                   <div class="modal-footer">
@@ -288,14 +290,30 @@ require 'cek-sesi.php';
                                 <input type="text" class="form-control" name="nama_material">
                                 Jumlah :
                                 <input type="number" class="form-control" name="sub_total">
-                                Sumber :
-                                <select class="form-control" name="sumber">
-                                  <option value="1">1. Trading</option>
-                                  <option value="2">2. Production</option>
-                                  <option value="3">3. Service</option>
-                                </select>
-                                Customer :
-                                <input type="text" class="form-control" name="customer">
+                                <div class="form-group">
+                                  <label>Sumber :</label>
+                                  <select class="form-control" id="searchSumber" name="sumber" onchange="searchSumber()">
+                                    <option value="">Pilih Sumber</option>
+                                    <?php
+                                    $querySumber = mysqli_query($koneksi, "SELECT * FROM sumber");
+                                    while ($sumber = mysqli_fetch_assoc($querySumber)) {
+                                      echo '<option value="' . $sumber["id_sumber"] . '">' . $sumber["nama"] . '</option>';
+                                    }
+                                    ?>
+                                  </select>
+                                </div>
+                                <div class="form-group">
+                                  <label>Customer :</label>
+                                  <select class="form-control" id="searchSumber" name="customer" onchange="searchSumber()">
+                                    <option value="">Pilih Customer</option>
+                                    <?php
+                                    $querySupplier = mysqli_query($koneksi, "SELECT * FROM customer");
+                                    while ($supplier = mysqli_fetch_assoc($querySupplier)) {
+                                      echo '<option value="' . $supplier["id_customer"] . '">' . $supplier["nama_customer"] . '</option>';
+                                    }
+                                    ?>
+                                  </select>
+                                </div>
                               </div>
                               <!-- footer modal -->
                               <div class="modal-footer">
@@ -307,7 +325,6 @@ require 'cek-sesi.php';
 
                       </div>
                 </div>
-
 
 
                 <?php

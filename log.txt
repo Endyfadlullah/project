@@ -34,3 +34,11 @@
 
 [2023-30-11:18:44:57] Nama Admin : admin => Edit Pemasukan => 1 => Sukses Edit
 
+[2023-01-12:17:34:39] Nama Admin : admin => Edit Pemasukan => 1 => Sukses Edit
+
+[2023-01-12:17:34:45] Nama Admin : admin => Edit Pemasukan => 1 => Sukses Edit
+
+[2023-01-12:17:42:37] Nama Admin : admin => Edit Pemasukan => 4 => Sukses Edit
+
+[2023-01-12:17:42:45] Nama Admin : admin => Edit Pemasukan => 4 => Sukses Edit
+

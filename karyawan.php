@@ -29,7 +29,6 @@ require 'cek-sesi.php';
   <!-- link alert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
 </head>
 
 <body id="page-top">
@@ -156,7 +155,12 @@ require 'cek-sesi.php';
                                   <?php
                                   $queryAdmin = mysqli_query($koneksi, "SELECT * FROM admin");
                                   while ($admin = mysqli_fetch_assoc($queryAdmin)) {
-                                    echo '<option value="' . $admin["id_admin"] . '">' . $admin["nama"] . '</option>';
+                                    ?>
+                                    <option <?php echo $row['id_admin'] == $admin["id_admin"] ? 'selected' : '' ?>
+                                      value="<?php echo $admin["id_admin"] ?>">
+                                      <?php echo $admin["nama"] ?>
+                                    </option>
+                                    <?php
                                   }
                                   ?>
                                 </select>
@@ -240,7 +244,7 @@ require 'cek-sesi.php';
             Kontak :
             <input type="text" class="form-control" name="kontak">
             <div class="form-group">
-              <label>Cari Admin</label>
+              <label>Admin :</label>
               <select class="form-control" id="searchAdmin" name="admin" onchange="searchAdmin()">
                 <option value="">Pilih Admin</option>
                 <?php
@@ -251,6 +255,7 @@ require 'cek-sesi.php';
                 ?>
               </select>
             </div>
+
           </div>
           <!-- footer modal -->
           <div class="modal-footer">
