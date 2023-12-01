@@ -438,6 +438,13 @@ require 'cek-sesi.php';
     });
   </script>
 
+  <style>
+    #dataTable_filter {
+      display: flex;
+      justify-content: end;
+    }
+  </style>
+
 </body>
 
 </html>

@@ -78,7 +78,7 @@ WHERE tgl_pengeluaran = CURDATE() - INTERVAL 7 DAY");
       <div class="row">
 
         <!-- Content Column -->
-        <div class="col-lg-5 mb-4">
+        <div class="col-lg-6 mb-4">
 
           <!-- Project Card Example -->
           <div class="card shadow mb-4">
@@ -625,6 +625,13 @@ WHERE tgl_pengeluaran = CURDATE() - INTERVAL 7 DAY");
       }
     });
   </script>
+
+  <style>
+    #dataTable_filter{
+      display: flex;
+      justify-content: end;
+    }
+  </style>
 
 </body>
 
