@@ -11,7 +11,7 @@ require 'cek-sesi.php';
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="shortcut icon" href="img/uang.png">
+  <link rel="shortcut icon" href="img/icon.png">
   <title>Data Customer</title>
 
   <!-- Custom fonts for this template -->

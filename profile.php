@@ -11,7 +11,7 @@ require 'cek-sesi.php';
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-
+  <link rel="shortcut icon" href="img/icon.png">
   <title>Kelola Admin</title>
 
   <!-- Custom fonts for this template -->
@@ -91,7 +91,7 @@ require 'cek-sesi.php';
                       <?= $data['email'] ?>
                     </td>
                     <td>
-                      <?=  preg_replace('/./', '*', $data['pass']); ?>
+                      <?= preg_replace('/./', '*', $data['pass']); ?>
                     </td>
                     <td>
                       <!-- Button untuk modal -->
