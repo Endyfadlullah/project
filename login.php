@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="Login_v1/images/icons/favicon.ico"/>
+	<link rel="icon" type="image/png" href="img/icon.png"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="Login_v1/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
@@ -21,7 +21,6 @@
 	<link rel="stylesheet" type="text/css" href="Login_v1/css/style.css">
 <!--===============================================================================================-->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 
 </head>
 <body>
@@ -30,7 +29,7 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
-					<img src="https://img.freepik.com/free-vector/people-computer-tablet-smartphone-design-element_23-2148155585.jpg?w=740&t=st=1700109970~exp=1700110570~hmac=e8abc762ebb68d9305871186dac40be2e35d9723c8664c353d2b52efecdc6d40" alt="IMG">
+					<img src="img/logo login.png" alt="IMG">
 				</div>
 
 				<form class="login100-form validate-form" action="proses-login.php" method="post">
