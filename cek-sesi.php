@@ -8,7 +8,7 @@
 	// }
 	if (!isset($_SESSION['status']) || $_SESSION['status'] !== "login") {
 		// Jika tidak, alihkan pengguna ke halaman login
-		header("Location: login.php");
+		header("Location: index.php");
 		exit;}
 	
 	?>

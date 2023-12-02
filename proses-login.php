@@ -21,9 +21,9 @@ $sesi = mysqli_fetch_assoc($sesi);
 	$_SESSION['id'] = $sesi['id_admin'];
 	$_SESSION['nama'] = $sesi['nama'];
 	$_SESSION['status'] = "login";
-	header("location:index.php");
+	header("location:dashboard.php");
 }else{
-	header("location:login.php?pesan=gagal");
+	header("location:index.php?pesan=gagal");
 	// header("location:login.html?pesan=gagal");
 }
 ?>
