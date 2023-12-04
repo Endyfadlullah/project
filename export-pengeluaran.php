@@ -1,6 +1,9 @@
 <?php
 header("Content-type: application/vnd-ms-excel");
 header("Content-Disposition: attachment; filename=Data_Pengeluaran.xls");
+
+$tanggalAwal = $_GET['tanggal_awal'];
+$tanggalAkhir = $_GET['tanggal_akhir'];
 ?>
 <h3>Data Pengeluaran</h3>
 <table border="1" cellpadding="5">
@@ -17,7 +20,7 @@ header("Content-Disposition: attachment; filename=Data_Pengeluaran.xls");
 	// Load file koneksi.php  
 	include "koneksi.php";
 	// Buat query untuk menampilkan semua data siswa 
-	$query = mysqli_query($koneksi, "SELECT pengeluaran.id_pengeluaran, pengeluaran.tgl_pengeluaran, pengeluaran.nama_material, pengeluaran.harga, pengeluaran.total, sumber.nama, supplier.Nama_Perusahaan FROM pengeluaran INNER JOIN sumber ON pengeluaran.id_sumber = sumber.id_sumber INNER JOIN supplier ON pengeluaran.id_supplier = supplier.Kode_Supplier WHERE pengeluaran.id_pengeluaran ORDER BY pengeluaran.id_pengeluaran ASC");
+	$query = mysqli_query($koneksi, "SELECT pengeluaran.id_pengeluaran, pengeluaran.tgl_pengeluaran, pengeluaran.nama_material, pengeluaran.harga, pengeluaran.total, sumber.nama, supplier.Nama_Perusahaan FROM pengeluaran INNER JOIN sumber ON pengeluaran.id_sumber = sumber.id_sumber INNER JOIN supplier ON pengeluaran.id_supplier = supplier.Kode_Supplier WHERE pengeluaran.tgl_pengeluaran BETWEEN '$tanggalAwal' AND '$tanggalAkhir' ORDER BY pengeluaran.tgl_pengeluaran ASC");
 	// Untuk penomoran tabel, di awal set dengan 1 
 	while ($data = mysqli_fetch_array($query)) {
 		// Ambil semua data dari hasil eksekusi $sql 

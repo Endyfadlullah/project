@@ -377,7 +377,7 @@ WHERE tgl_pengeluaran = CURDATE() - INTERVAL 7 DAY");
                               </div>
                               <!-- footer modal -->
                               <div class="modal-footer">
-                                <button type="submit" class="btn btn-success">Tambah</button>
+                              <button type="submit" class="btn btn-success" onclick="return validateFormTambah()">Tambah</button>
                             </form>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
                           </div>
@@ -644,20 +644,26 @@ WHERE tgl_pengeluaran = CURDATE() - INTERVAL 7 DAY");
     });
   </script>
 
-  <!-- <script>
-    function searchSumber() {
-      var selectedSumber = document.getElementById("searchSumber").value;
+<script>
+    function validateFormTambah() {
+      var tglPemasukan = document.querySelector('#myModalTambah input[name="tgl_pengeluaran"]').value;
+      var namaMaterial = document.querySelector('#myModalTambah input[name="nama_material"]').value;
+      var harga = document.querySelector('#myModalTambah input[name="harga"]').value;
+      var jumlah = document.querySelector('#myModalTambah input[name="total"]').value;
+      var sumber = document.querySelector('#myModalTambah select[name="sumber"]').value;
+      var supplier = document.querySelector('#myModalTambah select[name="supplier"]').value;
 
-      // Redirect atau lakukan tindakan pencarian yang diperlukan
-      // Misalnya, jika Anda ingin mengarahkan ke halaman dengan filter admin tertentu:
-      if (selectedSumber !== "") {
-        window.location.href = 'pengeluaran.php?sumber=' + selectedSumber;
-      } else {
-        // Jika admin tidak dipilih, kembalikan ke halaman daftar karyawan normal
-        window.location.href = 'pengeluaran.php';
+      if (tglPemasukan === '' || namaMaterial === '' || harga === '' || jumlah === '' || sumber === '' || supplier === '') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Harap isi semua field terlebih dahulu.',
+        });
+        return false; // Mencegah pengiriman formulir jika ada field yang kosong
       }
+      return true; // Lanjutkan pengiriman formulir jika semua field terisi
     }
-  </script> -->
+  </script>
 
   <style>
     #dataTable_filter {

@@ -1,4 +1,5 @@
 <?php
+// session_start();
 require 'cek-sesi.php';
 ?>
 <!DOCTYPE html>
@@ -38,9 +39,7 @@ require 'cek-sesi.php';
   <div id="content">
 
     <?php require 'navbar.php'; ?>
-    <?php
-
-    ?>
+  
     <!-- Begin Page Content -->
     <div class="container-fluid">
 
@@ -219,6 +218,11 @@ require 'cek-sesi.php';
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
+
+  <!-- Logout Modal-->
+  <?php require 'logout-modal.php'; ?>
+
+  
   <!-- Modal -->
   <div id="myModalTambah" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -259,15 +263,14 @@ require 'cek-sesi.php';
           </div>
           <!-- footer modal -->
           <div class="modal-footer">
-            <button type="submit" class="btn btn-success" id="tambahButton">Tambah</button>
+            <button type="submit" class="btn btn-success" onclick="return validateFormTambah()">Tambah</button>
         </form>
         <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
       </div>
     </div>
 
   </div>
-  <!-- Logout Modal-->
-  <?php require 'logout-modal.php'; ?>
+  
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -379,6 +382,27 @@ require 'cek-sesi.php';
     }
   </script>
 
+  <!-- js apabila tidak ada field data yg di isi dan menjalankan button tambah -->
+  <script>
+    function validateFormTambah() {
+      var nama = document.querySelector('#myModalTambah input[name="nama"]').value;
+      var posisi = document.querySelector('#myModalTambah input[name="posisi"]').value;
+      var alamat = document.querySelector('#myModalTambah input[name="alamat"]').value;
+      var umur = document.querySelector('#myModalTambah input[name="umur"]').value;
+      var kontak = document.querySelector('#myModalTambah input[name="kontak"]').value;
+      // var admin = document.querySelector('#myModalTambah input[name="admin"]').value;
+
+      if (nama === '' || posisi === '' || alamat === '' || umur === '' || kontak === '') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Harap isi semua field terlebih dahulu.',
+        });
+        return false; // Mencegah pengiriman formulir jika ada field yang kosong
+      }
+      return true; // Lanjutkan pengiriman formulir jika semua field terisi
+    }
+  </script>
 
 </body>
 

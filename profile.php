@@ -182,7 +182,8 @@ require 'cek-sesi.php';
                           </div>
                           <!-- footer modal -->
                           <div class="modal-footer">
-                            <button type="submit" class="btn btn-success">Tambah</button>
+                            <button type="submit" class="btn btn-success"
+                              onclick="return validateFormTambahAdmin()">Tambah</button>
                         </form>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
                       </div>
@@ -317,6 +318,25 @@ require 'cek-sesi.php';
         localStorage.setItem('swal', false)
       }
     });
+  </script>
+
+  <!-- js untuk validasi form tambah admin -->
+  <script>
+    function validateFormTambahAdmin() {
+      var namaAdmin = document.querySelector('#myModalTambah input[name="nama"]').value;
+      var emailAdmin = document.querySelector('#myModalTambah input[name="email"]').value;
+      var passAdmin = document.querySelector('#myModalTambah input[name="pass"]').value;
+
+      if (namaAdmin === '' || emailAdmin === '' || passAdmin === '') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Harap isi semua field terlebih dahulu.',
+        });
+        return false; // Mencegah pengiriman formulir jika ada field yang kosong
+      }
+      return true; // Lanjutkan pengiriman formulir jika semua field terisi
+    }
   </script>
 
 </body>

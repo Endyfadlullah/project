@@ -164,7 +164,8 @@ require 'cek-sesi.php';
                           </div>
                           <!-- footer modal -->
                           <div class="modal-footer">
-                            <button type="submit" class="btn btn-success">Tambah</button>
+                            <button type="submit" class="btn btn-success"
+                              onclick="return validateFormTambah()">Tambah</button>
                         </form>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
                       </div>
@@ -268,6 +269,7 @@ require 'cek-sesi.php';
     $_SESSION['edit-sukses'] = false;
   }
   ?>
+
   <!-- alert hapus -->
   <script>
     // Sisipkan skrip JavaScript untuk menangani klik tombol Tambah
@@ -299,6 +301,24 @@ require 'cek-sesi.php';
         localStorage.setItem('swal', false)
       }
     });
+  </script>
+
+  <!-- js untuk validasi form tambah -->
+  <script>
+    function validateFormTambah() {
+      var namaCustomer = document.querySelector('#myModalTambah input[name="nama_customer"]').value;
+      var kontak = document.querySelector('#myModalTambah input[name="no_telp"]').value;
+
+      if (namaCustomer === '' || kontak === '') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Harap isi semua field terlebih dahulu.',
+        });
+        return false; // Mencegah pengiriman formulir jika ada field yang kosong
+      }
+      return true; // Lanjutkan pengiriman formulir jika semua field terisi
+    }
   </script>
 
 </body>

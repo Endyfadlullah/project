@@ -214,7 +214,8 @@ require 'cek-sesi.php';
 
                                   <div class="form-group">
                                     <label>Sumber</label>
-                                    <select class="form-control" id="searchSumber" name="id_sumber" onchange="searchSumber()">
+                                    <select class="form-control" id="searchSumber" name="id_sumber"
+                                      onchange="searchSumber()">
                                       <option value="">Pilih Sumber</option>
                                       <?php
                                       $querySumber = mysqli_query($koneksi, "SELECT * FROM sumber");
@@ -232,7 +233,8 @@ require 'cek-sesi.php';
 
                                   <div class="form-group">
                                     <label>Customer</label>
-                                    <select class="form-control" id="searchSumber" name="id_customer" onchange="searchSumber()">
+                                    <select class="form-control" id="searchSumber" name="id_customer"
+                                      onchange="searchSumber()">
                                       <option value="">Pilih Customer</option>
                                       <?php
                                       $queryCustomer = mysqli_query($koneksi, "SELECT * FROM customer");
@@ -282,7 +284,7 @@ require 'cek-sesi.php';
                               <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <!-- body modal -->
-                            <form action="tambah-pendapatan.php" method="get">
+                            <form id="formTambahKaryawan" action="tambah-pendapatan.php" method="get">
                               <div class="modal-body">
                                 Tanggal :
                                 <input type="date" class="form-control" name="tgl_pemasukan">
@@ -304,7 +306,8 @@ require 'cek-sesi.php';
                                 </div>
                                 <div class="form-group">
                                   <label>Customer :</label>
-                                  <select class="form-control" id="searchSumber" name="customer" onchange="searchSumber()">
+                                  <select class="form-control" id="searchSumber" name="customer"
+                                    onchange="searchSumber()">
                                     <option value="">Pilih Customer</option>
                                     <?php
                                     $querySupplier = mysqli_query($koneksi, "SELECT * FROM customer");
@@ -317,7 +320,8 @@ require 'cek-sesi.php';
                               </div>
                               <!-- footer modal -->
                               <div class="modal-footer">
-                                <button type="submit" class="btn btn-success">Tambah</button>
+                                <button type="submit" class="btn btn-success"
+                                  onclick="return validateFormTambah()">Tambah</button>
                             </form>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
                           </div>
@@ -454,6 +458,27 @@ require 'cek-sesi.php';
       }
     });
   </script>
+
+  <script>
+    function validateFormTambah() {
+      var tglPemasukan = document.querySelector('#myModalTambah input[name="tgl_pemasukan"]').value;
+      var namaMaterial = document.querySelector('#myModalTambah input[name="nama_material"]').value;
+      var subTotal = document.querySelector('#myModalTambah input[name="sub_total"]').value;
+      var sumber = document.querySelector('#myModalTambah select[name="sumber"]').value;
+      var customer = document.querySelector('#myModalTambah select[name="customer"]').value;
+
+      if (tglPemasukan === '' || namaMaterial === '' || subTotal === '' || sumber === '' || customer === '') {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Harap isi semua field terlebih dahulu.',
+        });
+        return false; // Mencegah pengiriman formulir jika ada field yang kosong
+      }
+      return true; // Lanjutkan pengiriman formulir jika semua field terisi
+    }
+  </script>
+
 
   <style>
     #dataTable_filter {

@@ -1,4 +1,5 @@
 <?php
+// session_start();
 require 'cek-sesi.php';
 ?>
 <!DOCTYPE html>
@@ -73,7 +74,7 @@ require 'cek-sesi.php';
   $pemasukan_hari_ini = mysqli_fetch_array($pemasukan_hari_ini);
 
 
-
+  //grafik perbandingan//
   $pemasukan = mysqli_query($koneksi, "SELECT * FROM pemasukan");
   while ($masuk = mysqli_fetch_array($pemasukan)) {
     $arraymasuk[] = $masuk['sub_total'];
@@ -87,42 +88,58 @@ require 'cek-sesi.php';
   }
   $jumlahkeluar = array_sum($arraykeluar);
 
+  //pendapatan bersih//
+  if (isset($_GET['tanggal'])) {
+    // Ambil tanggal yang dipilih dari form
+    $tanggal_dipilih = $_GET['tanggal'];
 
-  $uang = $jumlahmasuk - $jumlahkeluar;
+    // Perhitungan pendapatan bersih berdasarkan tanggal yang dipilih
+    $pemasukan_hari_ini = mysqli_query($koneksi, "SELECT SUM(sub_total) FROM pemasukan WHERE tgl_pemasukan = '$tanggal_dipilih'");
+    $pemasukan_hari_ini = mysqli_fetch_array($pemasukan_hari_ini);
 
-  //data chart//
+    $pengeluaran_hari_ini = mysqli_query($koneksi, "SELECT SUM(total) FROM pengeluaran WHERE tgl_pengeluaran = '$tanggal_dipilih'");
+    $pengeluaran_hari_ini = mysqli_fetch_array($pengeluaran_hari_ini);
+
+    // Hitung pendapatan bersih berdasarkan tanggal yang dipilih
+    // $uang = $pemasukan_hari_ini['0'] - $pengeluaran_hari_ini['0'];
+    if (isset($pemasukan_hari_ini['0']) && isset($pengeluaran_hari_ini['0'])) {
+      $uang = $pemasukan_hari_ini['0'] - $pengeluaran_hari_ini['0'];
+    } else {
+      $uang = 0;
+    }
+  }
+  $pendapatan_bersih = $jumlahmasuk - $jumlahkeluar;
+  // $pendapatan_bersih = $pemasukan_hari_ini['0'] - $pengeluaran_hari_ini['0'];
   
-  $sekarang = mysqli_query($koneksi, "SELECT sub_total FROM pemasukan
-WHERE tgl_pemasukan = CURDATE()");
-  $sekarang = mysqli_fetch_array($sekarang);
+  //grafik perbulan//
+  if (isset($_GET['tanggal'])) {
+    // Ambil tanggal yang dipilih dari form
+    $tanggal_dipilih = $_GET['tanggal'];
 
-  $satuhari = mysqli_query($koneksi, "SELECT sub_total FROM pemasukan
-WHERE tgl_pemasukan = CURDATE() - INTERVAL 1 DAY");
-  $satuhari = mysqli_fetch_array($satuhari);
+    // Ganti query untuk mengambil data pendapatan per bulan berdasarkan filter tanggal yang dipilih
+    $pemasukan_bulan_ini = mysqli_query($koneksi, "SELECT MONTH(tgl_pemasukan) as bulan, SUM(sub_total) as total FROM pemasukan WHERE YEAR(tgl_pemasukan) = YEAR('$tanggal_dipilih') AND MONTH(tgl_pemasukan) = MONTH('$tanggal_dipilih') GROUP BY MONTH(tgl_pemasukan)");
+    $data_pendapatan_bulan = array_fill(0, 12, 0); // Inisialisasi array untuk menyimpan pendapatan per bulan
+  
+    while ($row = mysqli_fetch_assoc($pemasukan_bulan_ini)) {
+      $bulan = intval($row['bulan']) - 1; // Mengonversi bulan ke indeks array
+      $data_pendapatan_bulan[$bulan] = $row['total'];
+    }
 
-  $duahari = mysqli_query($koneksi, "SELECT sub_total FROM pemasukan
-WHERE tgl_pemasukan = CURDATE() - INTERVAL 2 DAY");
-  $duahari = mysqli_fetch_array($duahari);
+    $pengeluaran_bulan_ini = mysqli_query($koneksi, "SELECT MONTH(tgl_pengeluaran) as bulan, SUM(total) as total FROM pengeluaran WHERE YEAR(tgl_pengeluaran) = YEAR('$tanggal_dipilih') AND MONTH(tgl_pengeluaran) = MONTH('$tanggal_dipilih') GROUP BY MONTH(tgl_pengeluaran)");
+    $data_pengeluaran_bulan = array_fill(0, 12, 0); // Inisialisasi array untuk menyimpan pengeluaran per bulan
+  
+    while ($row = mysqli_fetch_assoc($pengeluaran_bulan_ini)) {
+      $bulan = intval($row['bulan']) - 1; // Mengonversi bulan ke indeks array
+      $data_pengeluaran_bulan[$bulan] = $row['total'];
+    }
 
-  $tigahari = mysqli_query($koneksi, "SELECT sub_total FROM pemasukan
-WHERE tgl_pemasukan = CURDATE() - INTERVAL 3 DAY");
-  $tigahari = mysqli_fetch_array($tigahari);
+    // Atur label bulan untuk sumbu x
+    $labels_bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+  } else {
+    // Jika tidak ada permintaan filter, tampilkan data default (misalnya, bulan ini)
+    // ...
+  }
 
-  $empathari = mysqli_query($koneksi, "SELECT sub_total FROM pemasukan
-WHERE tgl_pemasukan = CURDATE() - INTERVAL 4 DAY");
-  $empathari = mysqli_fetch_array($empathari);
-
-  $limahari = mysqli_query($koneksi, "SELECT sub_total FROM pemasukan
-WHERE tgl_pemasukan = CURDATE() - INTERVAL 5 DAY");
-  $limahari = mysqli_fetch_array($limahari);
-
-  $enamhari = mysqli_query($koneksi, "SELECT sub_total FROM pemasukan
-WHERE tgl_pemasukan = CURDATE() - INTERVAL 6 DAY");
-  $enamhari = mysqli_fetch_array($enamhari);
-
-  $tujuhhari = mysqli_query($koneksi, "SELECT sub_total FROM pemasukan
-WHERE tgl_pemasukan = CURDATE() - INTERVAL 7 DAY");
-  $tujuhhari = mysqli_fetch_array($tujuhhari);
   ?>
   <!-- Main Content -->
   <div id="content">
@@ -153,6 +170,111 @@ WHERE tgl_pemasukan = CURDATE() - INTERVAL 7 DAY");
         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
       </div>
 
+      <!-- form untuk filter tanggal -->
+      <form class="form-filter d-inline" method="GET" action="" onsubmit="return validateForm()">
+        <label for="tanggal">Pilih Tanggal:</label>
+        <input type="date" id="tanggal" name="tanggal">
+        <button type="submit">Filter</button>
+      </form>
+
+      <!-- js untuk apakah input tanggal telah diisi sebelum mengirimkan formulir  -->
+      <script>
+        function validateForm() {
+          var tanggal = document.getElementById('tanggal').value;
+          if (tanggal === '') {
+            // Menampilkan Sweet Alert jika tanggal tidak dipilih
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Harap pilih tanggal terlebih dahulu.',
+              timer: 2000, // Durasi toast 3 detik
+              timerProgressBar: true,
+              toast: true,
+              position: 'top',
+              showConfirmButton: false,
+              showCloseButton: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+              }
+            });
+            return false; // Menghentikan pengiriman formulir jika tanggal tidak dipilih
+          }
+          return true; // Lanjutkan pengiriman formulir jika tanggal sudah dipilih
+        }
+      </script>
+
+      <style>
+        /* Style untuk form */
+        form {
+          position: absolute;
+          top: 90px;
+          right: 20px;
+          /* display: flex; */
+          /* flex-direction: column; */
+          max-width: 300px;
+        }
+
+        label {
+          margin-bottom: 5px;
+          font-weight: bold;
+        }
+
+        input[type="date"] {
+          padding: 8px;
+          margin-bottom: 15px;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          font-size: 14px;
+        }
+
+        button[type="submit"] {
+          padding: 10px;
+          border: none;
+          border-radius: 5px;
+          background-color: #4e73df;
+          color: #fff;
+          font-size: 14px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+          background-color: #2e59d9;
+        }
+      </style>
+
+
+      <?php
+      // Periksa apakah ada permintaan filter tanggal
+      if (isset($_GET['tanggal'])) {
+        // Ambil tanggal yang dipilih dari form
+        $tanggal_dipilih = $_GET['tanggal'];
+
+        // Gunakan tanggal yang dipilih untuk mengambil data dari database
+        $pemasukan_hari_ini = mysqli_query($koneksi, "SELECT SUM(sub_total) FROM pemasukan WHERE DATE(tgl_pemasukan) = '$tanggal_dipilih'");
+        $pemasukan_hari_ini = mysqli_fetch_array($pemasukan_hari_ini);
+
+        $pengeluaran_hari_ini = mysqli_query($koneksi, "SELECT SUM(total) FROM pengeluaran WHERE DATE(tgl_pengeluaran) = '$tanggal_dipilih'");
+        $pengeluaran_hari_ini = mysqli_fetch_array($pengeluaran_hari_ini);
+
+        // ... (Lakukan hal serupa untuk bagian lain yang memerlukan filter tanggal)
+      
+      } else {
+        $tanggal_dipilih = date('Y-m-d');
+        // Jika tidak ada permintaan filter, tampilkan data default (misalnya, hari ini)
+        $pemasukan_hari_ini = mysqli_query($koneksi, "SELECT SUM(sub_total) FROM pemasukan WHERE tgl_pemasukan = CURDATE()");
+        $pemasukan_hari_ini = mysqli_fetch_array($pemasukan_hari_ini);
+
+        $pengeluaran_hari_ini = mysqli_query($koneksi, "SELECT SUM(total) FROM pengeluaran WHERE tgl_pengeluaran = CURDATE()");
+        $pengeluaran_hari_ini = mysqli_fetch_array($pengeluaran_hari_ini);
+
+        // ... (Lakukan hal serupa untuk bagian lain jika diperlukan)
+      
+      }
+      ?>
+
+
       <!-- Content Row -->
       <div class="row">
 
@@ -171,7 +293,7 @@ WHERE tgl_pemasukan = CURDATE() - INTERVAL 7 DAY");
                   <i class="fas fa-calendar fa-2x text-gray-300"></i>
                 </div>
               </div>
-            </div> &nbsp Mingguan : Rp.
+            </div> &nbsp Total : Rp.
             <?php
             echo number_format($jumlahmasuk, 2, ',', '.');
             ?>
@@ -193,24 +315,24 @@ WHERE tgl_pemasukan = CURDATE() - INTERVAL 7 DAY");
                   <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                 </div>
               </div>
-            </div> &nbsp Mingguan : Rp.
+            </div> &nbsp Total : Rp.
             <?php
             echo number_format($jumlahkeluar, 2, ',', '.');
             ?>
           </div>
         </div>
 
-        <!-- Sisa Uang -->
+        <!-- pendapatan bersih -->
         <div class="col-xl-3 col-md-6 mb-4">
           <div class="card border-left-info shadow h-100 py-2">
             <div class="card-body">
               <div class="row no-gutters align-items-center">
                 <div class="col mr-2">
-                  <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Sisa Uang</div>
+                  <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Pendapatan bersih</div>
                   <div class="row no-gutters align-items-center">
                     <div class="col-auto">
                       <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">Rp.
-                        <?= number_format($uang, 2, ',', '.'); ?>
+                        <?php echo number_format(isset($uang) ? $uang : 0, 2, ',', '.'); ?>
                       </div>
                     </div>
                   </div>
@@ -219,28 +341,10 @@ WHERE tgl_pemasukan = CURDATE() - INTERVAL 7 DAY");
                   <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                 </div>
               </div>
-
-            </div>
-            <div class="col">
-              <div class="progress progress-sm mr-2">
-                <?php
-                if ($uang < 1) {
-                  $warna = 'danger';
-                  $value = 0;
-                } else if ($uang >= 1 && $uang < 1000000) {
-                  $warna = 'warning';
-                  $value = 1;
-                } else {
-                  $warna = 'info';
-                  $value = $uang / 10000;
-                }
-                ;
-                ?>
-
-                <div class="progress-bar bg-<?= $warna ?>" role="progressbar" style="width: 100%"
-                  aria-valuenow="<?= $value ?>" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
+            </div> &nbsp Total : Rp.
+            <?php
+            echo number_format($pendapatan_bersih, 2, ',', '.');
+            ?>
           </div>
         </div>
 
@@ -273,7 +377,7 @@ WHERE tgl_pemasukan = CURDATE() - INTERVAL 7 DAY");
           <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-              <h6 class="m-0 font-weight-bold text-primary">Pendapatan Minggu Ini</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Pendapatan Per Bulan</h6>
               <div class="dropdown no-arrow">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">
@@ -336,6 +440,34 @@ WHERE tgl_pemasukan = CURDATE() - INTERVAL 7 DAY");
                   <i class="fas fa-circle text-info"></i> Sisa
                 </span>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Area Chart Pengeluaran Per Bulan -->
+      <div class="col-xl-8 col-lg-7">
+        <div class="card shadow mb-4">
+          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-primary">Pengeluaran Per Bulan</h6>
+            <div class="dropdown no-arrow">
+              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                aria-labelledby="dropdownMenuLink">
+                <div class="dropdown-header">Dropdown Header:</div>
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="chart-area">
+              <canvas id="myAreaChartPengeluaranBulan"></canvas>
             </div>
           </div>
         </div>
@@ -413,9 +545,9 @@ WHERE tgl_pemasukan = CURDATE() - INTERVAL 7 DAY");
     var myLineChart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ["7 hari lalu", "6 hari lalu", "5 hari lalu", "4 hari lalu", "3 hari lalu", "2 hari lalu", "1 hari lalu",],
+        labels: <?= json_encode($labels_bulan); ?>, // Menggunakan label bulan
         datasets: [{
-          label: "Pendapatan",
+          label: "Pendapatan per Bulan",
           lineTension: 0.3,
           backgroundColor: "rgba(78, 115, 223, 0.05)",
           borderColor: "rgba(78, 115, 223, 1)",
@@ -427,7 +559,7 @@ WHERE tgl_pemasukan = CURDATE() - INTERVAL 7 DAY");
           pointHoverBorderColor: "rgba(78, 115, 223, 1)",
           pointHitRadius: 10,
           pointBorderWidth: 2,
-          data: [<?php echo $tujuhhari['0'] ?? 0 ?>, <?php echo $enamhari['0'] ?? 0 ?>, <?php echo $limahari['0'] ?? 0 ?>, <?php echo $empathari['0'] ?? 0 ?>, <?php echo $tigahari['0'] ?? 0 ?>, <?php echo $duahari['0'] ?? 0 ?>, <?php echo $satuhari['0'] ?? 0 ?>],
+          data: <?= json_encode($data_pendapatan_bulan); ?>, // Data pendapatan dari PHP
         }],
       },
       options: {
@@ -497,9 +629,98 @@ WHERE tgl_pemasukan = CURDATE() - INTERVAL 7 DAY");
         }
       }
     });
+  </script>
 
-
-
+  <script type="text/javascript">
+    // Area Chart Pengeluaran Per Bulan
+    var ctx = document.getElementById("myAreaChartPengeluaranBulan");
+    var myLineChartPengeluaranBulan = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: <?= json_encode($labels_bulan); ?>, // Label bulan
+        datasets: [{
+          label: "Pengeluaran per Bulan",
+          lineTension: 0.3,
+          backgroundColor: "rgba(78, 115, 223, 0.05)",
+          borderColor: "rgba(78, 115, 223, 1)",
+          pointRadius: 3,
+          pointBackgroundColor: "rgba(78, 115, 223, 1)",
+          pointBorderColor: "rgba(78, 115, 223, 1)",
+          pointHoverRadius: 3,
+          pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+          pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+          pointHitRadius: 10,
+          pointBorderWidth: 2,
+          data: <?= json_encode($data_pengeluaran_bulan); ?>, // Data pengeluaran per bulan
+        }],
+      },
+      options: {
+        maintainAspectRatio: false,
+        layout: {
+          padding: {
+            left: 10,
+            right: 25,
+            top: 25,
+            bottom: 0
+          }
+        },
+        scales: {
+          xAxes: [{
+            time: {
+              unit: 'date'
+            },
+            gridLines: {
+              display: false,
+              drawBorder: false
+            },
+            ticks: {
+              maxTicksLimit: 7
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              maxTicksLimit: 5,
+              padding: 10,
+              // Include a dollar sign in the ticks
+              callback: function (value, index, values) {
+                return 'Rp.' + number_format(value);
+              }
+            },
+            gridLines: {
+              color: "rgb(234, 236, 244)",
+              zeroLineColor: "rgb(234, 236, 244)",
+              drawBorder: false,
+              borderDash: [2],
+              zeroLineBorderDash: [2]
+            }
+          }],
+        },
+        legend: {
+          display: false
+        },
+        tooltips: {
+          backgroundColor: "rgb(255,255,255)",
+          bodyFontColor: "#858796",
+          titleMarginBottom: 10,
+          titleFontColor: '#6e707e',
+          titleFontSize: 14,
+          borderColor: '#dddfeb',
+          borderWidth: 1,
+          xPadding: 15,
+          yPadding: 15,
+          displayColors: false,
+          intersect: false,
+          mode: 'index',
+          caretPadding: 10,
+          callbacks: {
+            label: function (tooltipItem, chart) {
+              var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
+              return datasetLabel + ': Rp.' + number_format(tooltipItem.yLabel);
+            }
+          }
+        }
+      }
+    });
   </script>
 
   <script type="text/javascript">
@@ -514,7 +735,7 @@ WHERE tgl_pemasukan = CURDATE() - INTERVAL 7 DAY");
       data: {
         labels: ["Pendapatan", "Pengeluaran", "Sisa"],
         datasets: [{
-          data: [<?php echo $jumlahmasuk / 1000000 ?>, <?php echo $jumlahkeluar / 1000000 ?>, <?php echo $uang / 1000000 ?>],
+          data: [<?php echo $jumlahmasuk / 1000000 ?>, <?php echo $jumlahkeluar / 1000000 ?>, <?php echo $pendapatan_bersih / 1000000 ?>],
           backgroundColor: ['#4e73df', '#e74a3b', '#36b9cc'],
           hoverBackgroundColor: ['#2e59d9', '#e74a3b', '#2c9faf'],
           hoverBorderColor: "rgba(234, 236, 244, 1)",
@@ -538,8 +759,6 @@ WHERE tgl_pemasukan = CURDATE() - INTERVAL 7 DAY");
         cutoutPercentage: 80,
       },
     });
-
-
   </script>
 
 </body>
