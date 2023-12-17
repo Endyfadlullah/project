@@ -163,7 +163,9 @@ require 'cek-sesi.php';
     <!-- End of Topbar -->
 
     <!-- Begin Page Content -->
-    <iframe title="GlobalTech" width="100%" height="100%" src="https://app.powerbi.com/view?r=eyJrIjoiNWU4NDQ5YzItMWZhNy00YjUyLThmMDUtNGFhNDM3ODhjMDNlIiwidCI6IjUyNjNjYzgxLTU5MTItNDJjNC1hYmMxLWQwZjFiNjY4YjUzMCIsImMiOjEwfQ%3D%3D" frameborder="0" allowFullScreen="true"></iframe>
+    <iframe title="GlobalTech" width="100%" height="100%"
+      src="https://app.powerbi.com/view?r=eyJrIjoiNWU4NDQ5YzItMWZhNy00YjUyLThmMDUtNGFhNDM3ODhjMDNlIiwidCI6IjUyNjNjYzgxLTU5MTItNDJjNC1hYmMxLWQwZjFiNjY4YjUzMCIsImMiOjEwfQ%3D%3D"
+      frameborder="0" allowFullScreen="true"></iframe>
     <!-- /.container-fluid -->
 
   </div>
